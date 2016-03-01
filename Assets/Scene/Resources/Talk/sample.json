@@ -2,7 +2,7 @@
     "sing-a-song-1": {
         "View": {
             "Type": "Sprite",
-            "Path": "Dialog/Talk/sample-owner"
+            "Path": "Talk/sample-owner"
         },
         "Pivot": "Left",
         "Sentences": [
@@ -21,7 +21,7 @@
     "sing-a-song-2": {
         "View": {
             "Type": "Prefab",
-            "Path": "Dialog/Talk/sample-player",
+            "Path": "Talk/sample-player",
             "Pivot": "Center",
             "AnimationTrigger": "sample"
         },

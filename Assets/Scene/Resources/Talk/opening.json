@@ -2,7 +2,7 @@
     "opening-sponser-call_homeless": {
         "View": {
             "Type": "Sprite",
-            "Path": "Dialog/Talk/sample-sponser-mysterious"
+            "Path": "Talk/sample-sponser-mysterious"
         },
         "Sentences": [
             "어이 거기",
@@ -15,7 +15,7 @@
     "opening-player-say_name": {
         "View": {
             "Type": "Sprite",
-            "Path": "Dialog/Talk/sample-player",
+            "Path": "Talk/sample-player",
             "Pivot": "Right"
         },
         "Sentences": [
@@ -30,7 +30,7 @@
     "opening-sponser-recall": {
         "View": {
             "Type": "Sprite",
-            "Path": "Dialog/Talk/sample-sponser"
+            "Path": "Talk/sample-sponser"
         },
         "Sentences": [
             "......",
