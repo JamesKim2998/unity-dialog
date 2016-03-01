@@ -2,11 +2,11 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(SpeechBalloonDebug))]
+[CustomEditor(typeof (SpeechBalloonDebug))]
 public class SpeechBalloonDebugEditor : ComponentEditor<SpeechBalloonDebug>
 {
-    private List<string> _fileList = new List<string>();
     private static GameObject _target;
+    private List<string> _fileList = new List<string>();
 
     protected override void OnEnable()
     {
@@ -24,13 +24,15 @@ public class SpeechBalloonDebugEditor : ComponentEditor<SpeechBalloonDebug>
     private void DrawLoadButton()
     {
         GUILayout.Label("db");
-        EditorUtil.DrawButtonList(_fileList, x => x, fileName => SpeechBalloonDb.inst.TryAppendWithDefaultDirectory(fileName, true));
+        EditorUtil.DrawButtonList(_fileList, x => x,
+            fileName => SpeechBalloonDb.Inst.TryAppendWithDefaultDirectory(fileName, true));
     }
 
     private void DrawPlay()
     {
         GUILayout.Label("dialog");
-        EditorUtil.DrawButtonList(SpeechBalloonDb.inst, x => x.Key, kv => SpeechBalloonManager.TryPlay(kv.Key, Target.Target));
+        EditorUtil.DrawButtonList(SpeechBalloonDb.Inst, x => x.Key,
+            kv => SpeechBalloonManager.TryPlay(kv.Key, Target.Target));
     }
 }
 
@@ -56,16 +58,17 @@ public class TalkDebugEditor : ComponentEditor<TalkDebug>
     private void DrawLoadButton()
     {
         GUILayout.Label("db");
-        EditorUtil.DrawButtonList(_fileList, x => x, fileName => TalkDb.inst.TryAppendWithDefaultDirectory(fileName, true));
+        EditorUtil.DrawButtonList(_fileList, x => x,
+            fileName => TalkDb.Inst.TryAppendWithDefaultDirectory(fileName, true));
     }
 
-    private void DrawPlay()
+    private static void DrawPlay()
     {
         GUILayout.Label("dialog");
-        EditorUtil.DrawButtonList(TalkDb.inst, x => x.Key, kv => TalkManager.TryPlay(kv.Key));
+        EditorUtil.DrawButtonList(TalkDb.Inst, x => x.Key, kv => TalkManager.TryPlay(kv.Key));
     }
 
-    private void DrawControl()
+    private static void DrawControl()
     {
         var talkPlayer = FindObjectOfType<TalkPlayer>();
         if (talkPlayer == null) return;

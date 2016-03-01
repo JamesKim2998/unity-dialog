@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface IDialogTextPlayerSource
 {
-    int count { get; }
+    int Count { get; }
     DialogSentence this[int i] { get; }
 }
 
@@ -16,39 +16,51 @@ public class DialogTextPlayerSource : IDialogTextPlayerSource
         _sentenceSequence = sentenceSequence;
     }
 
-    int IDialogTextPlayerSource.count { get { return _sentenceSequence.sentences.Count; } }
-    DialogSentence IDialogTextPlayerSource.this[int i] { get { return _sentenceSequence.sentences[i]; } }
+    int IDialogTextPlayerSource.Count
+    {
+        get { return _sentenceSequence.Sentences.Count; }
+    }
+
+    DialogSentence IDialogTextPlayerSource.this[int i]
+    {
+        get { return _sentenceSequence.Sentences[i]; }
+    }
 }
 
 public class DialogTextPlayer
 {
     public const float SentenceProceedDelay = 1;
-
-    public bool isPlaying { get { return currentSentenceIndex < _source.count; } }
-    public bool isDone { get { return !isPlaying; } }
-    public string text { get; private set; }
-    private string _oldText;
-
-    public int currentSentenceIndex { get; private set; }
-    public Action<int> onSentenceProceed;
-
-    private readonly IDialogTextPlayerSource _source;
+    private const float LettersPerSecond = 6;
     private readonly RichTextStroller _richTextStroller = new RichTextStroller();
-
-    private const float _lettersPerSecond = 6;
+    private readonly IDialogTextPlayerSource _source;
     private float _numberOfLettersToShow;
+    private string _oldText;
     private float _timeLeftToProceed = SentenceProceedDelay;
+    public Action<int> OnSentenceProceed;
 
     public DialogTextPlayer(IDialogTextPlayerSource source)
     {
-        text = "";
+        Text = "";
         _source = source;
-        _richTextStroller.Start(_source[0].text);
+        _richTextStroller.Start(_source[0].Text);
     }
+
+    public bool IsPlaying
+    {
+        get { return CurrentSentenceIndex < _source.Count; }
+    }
+
+    public bool IsDone
+    {
+        get { return !IsPlaying; }
+    }
+
+    public string Text { get; private set; }
+    public int CurrentSentenceIndex { get; private set; }
 
     public void Update(float dt)
     {
-        if (isDone) return;
+        if (IsDone) return;
         var canAppendText = UpdateNumberOfCharactersToBeAppended(dt);
         if (canAppendText)
         {
@@ -62,19 +74,19 @@ public class DialogTextPlayer
 
     private bool UpdateNumberOfCharactersToBeAppended(float dt)
     {
-        var sentence = _source[currentSentenceIndex];
-        _numberOfLettersToShow += (int) sentence.speed * _lettersPerSecond * dt;
-        var newLetterIndex = _richTextStroller.text.Length + (int) _numberOfLettersToShow;
-        return newLetterIndex <= sentence.text.Length;
+        var sentence = _source[CurrentSentenceIndex];
+        _numberOfLettersToShow += (int) sentence.Speed*LettersPerSecond*dt;
+        var newLetterIndex = _richTextStroller.Text.Length + (int) _numberOfLettersToShow;
+        return newLetterIndex <= sentence.Text.Length;
     }
 
     private void AppendSentence()
     {
-        Debug.Assert(!isDone, "already done.");
-        for (var i = 0; i < (int)_numberOfLettersToShow; ++i)
+        Debug.Assert(!IsDone, "already done.");
+        for (var i = 0; i < (int) _numberOfLettersToShow; ++i)
             _richTextStroller.Next();
-        text = _oldText + _richTextStroller.text;
-        _numberOfLettersToShow -= (int)_numberOfLettersToShow;
+        Text = _oldText + _richTextStroller.Text;
+        _numberOfLettersToShow -= (int) _numberOfLettersToShow;
     }
 
     private void ProceedSentenceWithTimer(float dt)
@@ -90,19 +102,12 @@ public class DialogTextPlayer
 
     private void ProceedSentence()
     {
-        var oldSentence = _source[currentSentenceIndex];
-        ++currentSentenceIndex;
+        var oldSentence = _source[CurrentSentenceIndex];
+        ++CurrentSentenceIndex;
         _numberOfLettersToShow = 0;
-        if (oldSentence.clear)
-        {
-            _oldText = "";
-        }
-        else
-        {
-            _oldText = text;
-        }
+        _oldText = oldSentence.Clear ? "" : Text;
         _richTextStroller.StopAndReset();
-        if (!isDone) _richTextStroller.Start(_source[currentSentenceIndex].text);
-        onSentenceProceed.CheckAndCall(currentSentenceIndex);
+        if (!IsDone) _richTextStroller.Start(_source[CurrentSentenceIndex].Text);
+        OnSentenceProceed.CheckAndCall(CurrentSentenceIndex);
     }
 }

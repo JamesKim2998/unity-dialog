@@ -1,6 +1,6 @@
 ﻿public class PrefabDb
 {
-    public static PrefabDb inst;
-    public TalkPlayer talkPlayer;
-    public SpeechBalloonUi speechBalloonUi;
+    public static PrefabDb Inst;
+    public SpeechBalloonUi SpeechBalloonUi;
+    public TalkPlayer TalkPlayer;
 }

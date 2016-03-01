@@ -1,57 +1,56 @@
-﻿using System.Collections.Generic;
+﻿using LitJson;
 using UnityEngine;
-using LitJson;
-
 using ITalkSentenceParser = IJsonDbParser<string, TalkSentenceSequence>;
 
 public enum TalkViewType
 {
     Sprite,
-    Prefab,
+    Prefab
 }
 
 public enum TalkViewPivot
 {
     Left,
     Right,
-    Center,
+    Center
 }
 
 public class TalkView
 {
-    public TalkViewType type;
-    public string path;
-    public TalkViewPivot pivot = TalkViewPivot.Left;
-    public Vector2 position;
-    public string animationTrigger;
+    public string AnimationTrigger;
+    public string Path;
+    public TalkViewPivot Pivot = TalkViewPivot.Left;
+    public Vector2 Position;
+    public TalkViewType Type;
 }
 
 public class TalkSentenceSequence
 {
-    public TalkView view;
-    [JsonIgnore]
-    public DialogSentenceSequence sentences;
-    public bool continueAuto;
-    public string nextTalk;
-
-    public static TalkSentenceSequence error = new TalkSentenceSequence() { sentences = DialogSentenceSequence.error, };
+    public static TalkSentenceSequence Error = new TalkSentenceSequence {Sentences = DialogSentenceSequence.Error};
+    public bool ContinueAuto;
+    public string NextTalk;
+    [JsonIgnore] public DialogSentenceSequence Sentences;
+    public TalkView View;
 }
 
 public class TalkSentenceParser : ITalkSentenceParser
 {
-    string ITalkSentenceParser.ParseKey(string raw) { return raw; }
+    string ITalkSentenceParser.ParseKey(string raw)
+    {
+        return raw;
+    }
 
     TalkSentenceSequence ITalkSentenceParser.ParseValue(JsonData raw)
     {
         var ret = raw.Convert<TalkSentenceSequence>();
-        ret.sentences = DialogSentenceSequence.Parse(raw["sentences"]);
+        ret.Sentences = DialogSentenceSequence.Parse(raw["sentences"]);
         return ret;
     }
 }
 
 public class TalkDb : JsonDb<string, TalkSentenceSequence>
 {
-    public static readonly TalkDb inst = new TalkDb();
+    public static readonly TalkDb Inst = new TalkDb();
 
     public TalkDb() : base(new TalkSentenceParser())
     {
@@ -59,7 +58,7 @@ public class TalkDb : JsonDb<string, TalkSentenceSequence>
 
     public TalkSentenceSequence Get(string key)
     {
-        return GetOrDefault(key, TalkSentenceSequence.error);
+        return GetOrDefault(key, TalkSentenceSequence.Error);
     }
 
     public bool TryAppendWithDefaultDirectory(string fileName, bool force)

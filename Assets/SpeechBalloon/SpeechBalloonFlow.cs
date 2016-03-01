@@ -6,8 +6,8 @@ public class SpeechBalloonFlow
 {
     private readonly List<DialogSentenceSequence> _flow;
     private readonly Func<int, GameObject> _targetProvider;
-    public Action<int> onFinishOne;
-    public Action onFinishAll;
+    public Action OnFinishAll;
+    public Action<int> OnFinishOne;
 
     public SpeechBalloonFlow(List<DialogSentenceSequence> flow, Func<int, GameObject> targetProvider)
     {
@@ -28,20 +28,20 @@ public class SpeechBalloonFlow
         if (target == null) return;
         var speechBalloonPlayer = SpeechBalloonManager.TryPlay(sentences, target);
         if (speechBalloonPlayer == null) return;
-        speechBalloonPlayer.onFinish += () => OnFinish(idx);
+        speechBalloonPlayer.OnFinish += () => OnFinish(idx);
     }
 
     private void OnFinish(int idx)
     {
-        onFinishOne.CheckAndCall(idx);
+        OnFinishOne.CheckAndCall(idx);
 
         if (idx < _flow.Count - 1)
         {
             Play(idx + 1);
         }
-        else if (idx == _flow.Count -1)
+        else if (idx == _flow.Count - 1)
         {
-            onFinishAll.CheckAndCall();
+            OnFinishAll.CheckAndCall();
         }
         else
         {

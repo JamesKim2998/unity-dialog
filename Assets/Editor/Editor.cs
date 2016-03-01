@@ -1,29 +1,32 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
-public class ComponentEditor<T> : UnityEditor.Editor
-	where T : Component
+public class ComponentEditor<T> : Editor
+    where T : Component
 {
-	private new T target;
+    private new T target;
 
-	public T Target
-	{
-		get { return target ?? (target = (T)base.target); }
-	}
+    public T Target
+    {
+        get { return target ?? (target = (T) base.target); }
+    }
 
-	protected virtual void OnEnable()
-	{ }
+    protected virtual void OnEnable()
+    {
+    }
 }
 
-public class ScriptableObjectEditor<T> : UnityEditor.Editor
-	where T : ScriptableObject
+public class ScriptableObjectEditor<T> : Editor
+    where T : ScriptableObject
 {
-	private new T target;
+    private new T target;
 
-	public T Target
-	{
-		get { return target ?? (target = (T)base.target); }
-	}
+    public T Target
+    {
+        get { return target ?? (target = (T) base.target); }
+    }
 
-	protected virtual void OnEnable()
-	{ }
+    protected virtual void OnEnable()
+    {
+    }
 }

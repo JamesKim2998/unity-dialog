@@ -9,5 +9,4 @@ public static class FileSystemHelper
         var paths = Directory.GetFiles(directory, pattern);
         return paths.Select<string, string>(Path.GetFileNameWithoutExtension).ToList();
     }
-
 }

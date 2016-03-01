@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using LitJson;
 
@@ -17,6 +16,16 @@ public class JsonDb<Key, Value> : IEnumerable<KeyValuePair<Key, Value>>
     public JsonDb(IJsonDbParser<Key, Value> parser)
     {
         _parser = parser;
+    }
+
+    public IEnumerator<KeyValuePair<Key, Value>> GetEnumerator()
+    {
+        return _db.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 
     public Value GetOrDefault(Key key, Value defaultValue)
@@ -39,15 +48,5 @@ public class JsonDb<Key, Value> : IEnumerable<KeyValuePair<Key, Value>>
         }
 
         return true;
-    }
-
-    public IEnumerator<KeyValuePair<Key, Value>> GetEnumerator()
-    {
-        return _db.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
     }
 }

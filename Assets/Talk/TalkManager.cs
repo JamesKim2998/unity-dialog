@@ -11,9 +11,9 @@ public static class TalkManager
             return false;
         }
 
-        var player = PrefabDb.inst.talkPlayer.Instantiate();
+        var player = PrefabDb.Inst.TalkPlayer.Instantiate();
         player.transform.SetParent(canvas.transform, false);
-        player.Play(TalkDb.inst.Get(key));
+        player.Play(TalkDb.Inst.Get(key));
         return true;
     }
 }

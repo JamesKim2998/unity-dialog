@@ -3,16 +3,18 @@ using UnityEngine;
 
 public class SpeechBalloonPlayer : MonoBehaviour
 {
-    private bool _isHavePlayed = false;
-    private bool _isFinished = false;
-    public bool isPlaying { get { return _dialogTextPlayer != null && !_dialogTextPlayer.isDone; } }
-
     private DialogTextPlayer _dialogTextPlayer;
+    private bool _isFinished;
+    private bool _isHavePlayed;
     private SpeechBalloonUi _ui;
+    public Action OnFinish;
 
-    public Action onFinish;
+    public bool IsPlaying
+    {
+        get { return _dialogTextPlayer != null && !_dialogTextPlayer.IsDone; }
+    }
 
-    void Start()
+    private void Start()
     {
         UpdatePosition();
     }
@@ -31,7 +33,7 @@ public class SpeechBalloonPlayer : MonoBehaviour
         }
 
         _isFinished = true;
-        onFinish.CheckAndCall();
+        OnFinish.CheckAndCall();
         Destroy(this);
     }
 
@@ -42,7 +44,7 @@ public class SpeechBalloonPlayer : MonoBehaviour
         UpdatePosition();
         UpdateLetter(dt);
 
-        if (!isPlaying && _isHavePlayed && !_isFinished)
+        if (!IsPlaying && _isHavePlayed && !_isFinished)
             Invoke("Finish", DialogTextPlayer.SentenceProceedDelay);
     }
 
@@ -55,12 +57,12 @@ public class SpeechBalloonPlayer : MonoBehaviour
     {
         if (_dialogTextPlayer == null) return;
         _dialogTextPlayer.Update(dt);
-        _ui.SetText(_dialogTextPlayer.text);
+        _ui.SetText(_dialogTextPlayer.Text);
     }
 
     public void Play(DialogSentenceSequence dialog)
     {
-        if (isPlaying)
+        if (IsPlaying)
         {
             Debug.LogWarning("already playing. reset.");
             Reset();
@@ -71,7 +73,7 @@ public class SpeechBalloonPlayer : MonoBehaviour
 
         _dialogTextPlayer = new DialogTextPlayer(new DialogTextPlayerSource(dialog));
 
-        _ui = PrefabDb.inst.speechBalloonUi.Instantiate();
+        _ui = PrefabDb.Inst.SpeechBalloonUi.Instantiate();
         _ui.transform.SetParent(canvas.transform, false);
         _ui.SetText("");
 

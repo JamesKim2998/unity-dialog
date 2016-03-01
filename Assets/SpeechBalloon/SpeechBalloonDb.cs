@@ -1,10 +1,12 @@
 ﻿using LitJson;
-
 using DialogSentenceSequenceJsonDbParser = IJsonDbParser<string, DialogSentenceSequence>;
 
 public class SpeechBalloonDbParser : DialogSentenceSequenceJsonDbParser
 {
-    string DialogSentenceSequenceJsonDbParser.ParseKey(string raw) { return raw; }
+    string DialogSentenceSequenceJsonDbParser.ParseKey(string raw)
+    {
+        return raw;
+    }
 
     DialogSentenceSequence DialogSentenceSequenceJsonDbParser.ParseValue(JsonData raw)
     {
@@ -14,15 +16,15 @@ public class SpeechBalloonDbParser : DialogSentenceSequenceJsonDbParser
 
 public class SpeechBalloonDb : JsonDb<string, DialogSentenceSequence>
 {
-    public static SpeechBalloonDb inst = new SpeechBalloonDb();
+    public static SpeechBalloonDb Inst = new SpeechBalloonDb();
 
     public SpeechBalloonDb() : base(new SpeechBalloonDbParser())
-    { 
+    {
     }
 
     public DialogSentenceSequence Get(string key)
     {
-        return GetOrDefault(key, DialogSentenceSequence.error);
+        return GetOrDefault(key, DialogSentenceSequence.Error);
     }
 
     public bool TryAppendWithDefaultDirectory(string fileName, bool force)

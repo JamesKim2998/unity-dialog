@@ -4,47 +4,53 @@ using UnityEngine;
 
 public class RichTextStroller
 {
-    public bool isSetuped { get { return orgText != null; } }
-    public bool isEnded { get { return (orgText == null) || (_idx == orgText.Length); } }
-
-    public string orgText { get; private set; }
-    private int _idx;
-
     private int _base;
-    public string text { get; private set; }
-    public int visualLength { get; private set; }
-
     private string _header = "";
+    private int _idx;
     private List<string> _tagHeads = new List<string>();
     private List<string> _tagTails = new List<string>();
 
     public RichTextStroller()
     {
-        text = "";
+        Text = "";
     }
+
+    public bool IsSetuped
+    {
+        get { return OrgText != null; }
+    }
+
+    public bool IsEnded
+    {
+        get { return (OrgText == null) || (_idx == OrgText.Length); }
+    }
+
+    public string OrgText { get; private set; }
+    public string Text { get; private set; }
+    public int VisualLength { get; private set; }
 
     public bool Start(string text)
     {
-        if (isSetuped)
+        if (IsSetuped)
         {
             Debug.LogError("try Start again.");
             return false;
         }
 
-        orgText = text;
+        OrgText = text;
         return true;
     }
 
     public void StopAndReset()
     {
-        if (!isSetuped)
+        if (!IsSetuped)
         {
             Debug.LogError("try StopAndReset again.");
             return;
         }
 
         _idx = 0;
-        orgText = null;
+        OrgText = null;
 
         _tagHeads.Clear();
         _tagTails.Clear();
@@ -54,18 +60,18 @@ public class RichTextStroller
 
     public bool Next()
     {
-        if (!isSetuped)
+        if (!IsSetuped)
         {
             Debug.LogError("not setuped yet.");
             return false;
         }
 
-        if (isEnded)
+        if (IsEnded)
             return false;
 
         _idx += ProceedOneVisualChracter();
-        text = BuildText(MakeRaw());
-        ++visualLength;
+        Text = BuildText(MakeRaw());
+        ++VisualLength;
 
         return true;
     }
@@ -73,8 +79,8 @@ public class RichTextStroller
     public bool Rebase()
     {
         _base = _idx;
-        text = "";
-        visualLength = 0;
+        Text = "";
+        VisualLength = 0;
 
         _header = !_tagHeads.Empty() ? MakeHead(ref _tagHeads) : "";
 
@@ -87,7 +93,7 @@ public class RichTextStroller
 
         do
         {
-            var hasTag = SplitTag(orgText.Substring(_idx + offset));
+            var hasTag = SplitTag(OrgText.Substring(_idx + offset));
             if (!hasTag.HasValue)
             {
                 ++offset;
@@ -95,10 +101,10 @@ public class RichTextStroller
             }
 
             var tag = hasTag.Value;
-            if (!tag.end)
+            if (!tag.End)
             {
-                _tagHeads.Add(orgText.Substring(_idx + offset, tag.offset));
-                _tagTails.Add(tag.tag);
+                _tagHeads.Add(OrgText.Substring(_idx + offset, tag.Offset));
+                _tagTails.Add(tag.Tag);
             }
             else
             {
@@ -107,23 +113,25 @@ public class RichTextStroller
                 _tagTails.RemoveBack();
             }
 
-            offset += tag.offset;
-            if (orgText.Length == _idx + offset)
+            offset += tag.Offset;
+            if (OrgText.Length == _idx + offset)
                 break;
-
         } while (true);
 
         return offset;
     }
 
-    private string MakeRaw() { return orgText.Substring(_base, _idx - _base); }
+    private string MakeRaw()
+    {
+        return OrgText.Substring(_base, _idx - _base);
+    }
 
     private string BuildText(string txt)
     {
         if (string.IsNullOrEmpty(_header) && _tagTails.Empty())
             return txt;
 
-        var builder = new StringBuilder(orgText.Length);
+        var builder = new StringBuilder(OrgText.Length);
 
         if (!string.IsNullOrEmpty(_header))
             builder.Append(_header);
@@ -136,14 +144,7 @@ public class RichTextStroller
         return builder.ToString();
     }
 
-    struct Tag
-    {
-        public string tag;
-        public int offset;
-        public bool end;
-    }
-
-    private static Tag? SplitTag(string txt)
+    private static TagRange? SplitTag(string txt)
     {
         Debug.Assert(!string.IsNullOrEmpty(txt));
 
@@ -169,11 +170,11 @@ public class RichTextStroller
             {
                 Debug.Assert((tagEnd != 0) && (tagEnd != tagStart));
 
-                return new Tag
+                return new TagRange
                 {
-                    tag = txt.Substring(tagStart, tagEnd - tagStart),
-                    offset = i + 1,
-                    end = isEnd,
+                    Tag = txt.Substring(tagStart, tagEnd - tagStart),
+                    Offset = i + 1,
+                    End = isEnd
                 };
             }
         }
@@ -187,7 +188,7 @@ public class RichTextStroller
         Debug.Assert(!tags.Empty());
         if (tags.Count == 1)
             return tags[0];
-        var txt = new StringBuilder(tags.Count * 45);
+        var txt = new StringBuilder(tags.Count*45);
         foreach (var tag in tags)
             txt.Append(tag);
         return txt.ToString();
@@ -196,9 +197,16 @@ public class RichTextStroller
     private static string MakeTail(ref List<string> tags)
     {
         Debug.Assert(!tags.Empty());
-        var txt = new StringBuilder(tags.Count * 5);
+        var txt = new StringBuilder(tags.Count*5);
         foreach (var tag in tags.GetReverseEnum())
             txt.Append("</").Append(tag).Append('>');
         return txt.ToString();
+    }
+
+    private struct TagRange
+    {
+        public bool End;
+        public int Offset;
+        public string Tag;
     }
 }

@@ -13,44 +13,41 @@ public enum DialogPlaySpeed
 
 public class DialogSentence
 {
-    public string text;
-    public DialogPlaySpeed speed = DialogPlaySpeed.Normal;
-    public bool clear = true;
+    public bool Clear = true;
+    public DialogPlaySpeed Speed = DialogPlaySpeed.Normal;
+    public string Text;
 
-    public DialogSentence() { }
+    public DialogSentence()
+    {
+    }
 
     public DialogSentence(string text)
     {
-        this.text = text;
+        Text = text;
     }
 
     public static DialogSentence Parse(JsonData data)
     {
-        if (data.IsObject)
-        {
-            return data.Convert<DialogSentence>();
-        }
-        else
-        {
-            return new DialogSentence((string) data);
-        }
+        return data.IsObject ? data.Convert<DialogSentence>() : new DialogSentence((string) data);
     }
 }
 
 public class DialogSentenceSequence
 {
-    public List<DialogSentence> sentences { get; private set; }
-
-    public static readonly DialogSentenceSequence error;
+    public static readonly DialogSentenceSequence Error;
 
     static DialogSentenceSequence()
     {
-        error = new DialogSentenceSequence();
-        error.sentences = new List<DialogSentence>
+        Error = new DialogSentenceSequence
         {
-            new DialogSentence("ERROR"),
+            Sentences = new List<DialogSentence>
+            {
+                new DialogSentence("ERROR")
+            }
         };
     }
+
+    public List<DialogSentence> Sentences { get; private set; }
 
     public static DialogSentenceSequence Parse(JsonData data)
     {
@@ -58,13 +55,13 @@ public class DialogSentenceSequence
 
         if (data.IsArray)
         {
-            ret.sentences = data.GetListEnum().Select<JsonData, DialogSentence>(DialogSentence.Parse).ToList();
+            ret.Sentences = data.GetListEnum().Select<JsonData, DialogSentence>(DialogSentence.Parse).ToList();
         }
         else
         {
-            ret.sentences = new List<DialogSentence>
+            ret.Sentences = new List<DialogSentence>
             {
-                new DialogSentence((string)data)
+                new DialogSentence((string) data)
             };
         }
 
