@@ -1,60 +1,60 @@
 {
     "opening-station-suggest": [
         {
-            "target": "Supporter",
-            "sentences": [ "당신혹시 <color=#ff0000>집</color>을 가지고 싶지 않으신가요?" ]
+            "Target": "Supporter",
+            "Sentences": [ "당신혹시 <color=#ff0000>집</color>을 가지고 싶지 않으신가요?" ]
         },
         {
-            "target": "Player",
-            "sentences": [ "뭐라는거요 저리 꺼지쇼.." ]
+            "Target": "Player",
+            "Sentences": [ "뭐라는거요 저리 꺼지쇼.." ]
         },
         {
-            "target": "Supporter",
-            "sentences": [ "일단 한번 들어보시죠." ]
+            "Target": "Supporter",
+            "Sentences": [ "일단 한번 들어보시죠." ]
         },
         {
-            "target": "Player",
-            "sentences": [ "귀찮게 하지 말고 저리 꺼지라니까" ]
+            "Target": "Player",
+            "Sentences": [ "귀찮게 하지 말고 저리 꺼지라니까" ]
         },
         {
-            "target": "Supporter",
-            "sentences": [ "제가 알고 있는 집이 있는데\n그집을 당신에게 주도록 하겠습니다." ]
+            "Target": "Supporter",
+            "Sentences": [ "제가 알고 있는 집이 있는데\n그집을 당신에게 주도록 하겠습니다." ]
         },
         {
-            "target": "Player",
-            "sentences": [ "뭔....." ]
+            "Target": "Player",
+            "Sentences": [ "뭔....." ]
         },
         {
-            "target": "Supporter",
-            "sentences": [ "10일." ]
+            "Target": "Supporter",
+            "Sentences": [ "10일." ]
         },
         {
-            "target": "Player",
-            "sentences": [ "???" ]
+            "Target": "Player",
+            "Sentences": [ "???" ]
         }
     ],
     "opening-station-get_close": [
         {
-            "target": "Supporter",
-            "sentences": [ "10일. \n단 <size=32><color=#ff0000>10일</color></size>동안만 그 놈한테 들키지 않고", "숨어서 산다면 그집을 당신에게 주도록 하겠습니다." ]   
+            "Target": "Supporter",
+            "Sentences": [ "10일. \n단 <size=32><color=#ff0000>10일</color></size>동안만 그 놈한테 들키지 않고", "숨어서 산다면 그집을 당신에게 주도록 하겠습니다." ]   
         },
         {
-            "target": "Player",
-            "sentences": [ "장난치지 말라니까 참나.." ]
+            "Target": "Player",
+            "Sentences": [ "장난치지 말라니까 참나.." ]
         },
         {
-            "target": "Supporter",
-            "sentences": [ "장난이 아닙니다." ]
+            "Target": "Supporter",
+            "Sentences": [ "장난이 아닙니다." ]
         }
     ],
     "opening-station-give_money": [
         {
-            "target": "Supporter",
-            "sentences": [ "우선 선금으로 이 돈을 드릴테니\n일단 속는셈 치고 한번 따라와 보시죠." ]
+            "Target": "Supporter",
+            "Sentences": [ "우선 선금으로 이 돈을 드릴테니\n일단 속는셈 치고 한번 따라와 보시죠." ]
         },
         {
-            "target": "Player",
-            "sentences": [ "장난치지 말라니까 참나..", "....일단 가보기나 합시다." ]
+            "Target": "Player",
+            "Sentences": [ "장난치지 말라니까 참나..", "....일단 가보기나 합시다." ]
         }
     ]
 }

@@ -8,6 +8,11 @@ namespace Dialog
 {
     public static class EditorUtil
     {
+        public static GUIStyle MakeTextColor(Color color)
+        {
+            return new GUIStyle {normal = { textColor = color }};
+        }
+
         public static void DrawButtonList<T>(IEnumerable<T> enumerable, Func<T, string> toName, Action<T> callback)
         {
             foreach (var elem in enumerable)

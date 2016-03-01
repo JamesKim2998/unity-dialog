@@ -47,7 +47,7 @@ namespace Dialog
         TalkSentenceSequence ITalkSentenceParser.ParseValue(JsonData raw)
         {
             var ret = raw.Convert<TalkSentenceSequence>();
-            ret.Sentences = SentenceSequence.Parse(raw["sentences"]);
+            ret.Sentences = SentenceSequence.Parse(raw["Sentences"]);
             return ret;
         }
     }

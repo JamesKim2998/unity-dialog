@@ -12,7 +12,7 @@ namespace Dialog
         protected override void OnEnable()
         {
             base.OnEnable();
-            _fileList = EditorUtil.GetListOfFilesWithOutExtension(Config.Inst.DefaultTalkDbFullDirectory, "*.json");
+            _fileList = EditorUtil.GetListOfFilesWithOutExtension(Config.Inst.DefaultSpeechBalloonDbFullDirectory, "*.json");
         }
 
         public override void OnInspectorGUI()
@@ -32,6 +32,12 @@ namespace Dialog
 
         private void DrawPlay()
         {
+            if (Target.Target == null)
+            {
+                GUILayout.Label("please set target.", EditorUtil.MakeTextColor(Color.red));
+                return;
+            }
+
             GUILayout.Label("dialog");
             EditorUtil.DrawButtonList(SpeechBalloonDb.Inst, x => x.Key,
                 kv => SpeechBalloonManager.TryPlay(kv.Key, Target.Target));

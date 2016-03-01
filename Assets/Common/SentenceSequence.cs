@@ -17,7 +17,7 @@ namespace Dialog
     {
         public bool Clear = true;
         public DialogPlaySpeed Speed = DialogPlaySpeed.Normal;
-        public string Text;
+        public string Text = "";
 
         public DialogSentence()
         {

@@ -1,24 +1,24 @@
 {
     "opening-house-talk": [
         {
-            "target": "Supporter",
-            "sentences": [ "이 집입니다.\n당신이 가지게될 집이죠." ]
+            "Target": "Supporter",
+            "Sentences": [ "이 집입니다.\n당신이 가지게될 집이죠." ]
         },
         {
-            "target": "Player",
-            "sentences": [ "정말 이집을 준다는 거요?" ]
+            "Target": "Player",
+            "Sentences": [ "정말 이집을 준다는 거요?" ]
         },
         {
-            "target": "Supporter",
-            "sentences": [ "10일만 잘 숨어 사세요.\n정말로 이집을 당신에게 드리도록 하겠습니다." ]
+            "Target": "Supporter",
+            "Sentences": [ "10일만 잘 숨어 사세요.\n정말로 이집을 당신에게 드리도록 하겠습니다." ]
         },
         {
-            "target": "Player",
-            "sentences": [ "......알겠소.", "당신이 왜 이러는지는\n모르겠지만....", "이유는 물어봐도\n말 안해주겠지오?" ]
+            "Target": "Player",
+            "Sentences": [ "......알겠소.", "당신이 왜 이러는지는\n모르겠지만....", "이유는 물어봐도\n말 안해주겠지오?" ]
         },
         {
-            "target": "Supporter",
-            "sentences": [ "..그건 차차 알게될 것입니다." ]
+            "Target": "Supporter",
+            "Sentences": [ "..그건 차차 알게될 것입니다." ]
         }
     ]
 }

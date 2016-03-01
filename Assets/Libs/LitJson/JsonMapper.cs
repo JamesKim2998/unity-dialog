@@ -339,7 +339,15 @@ public class JsonMapper {
 			#else
 			if (valueType.IsEnum) {
 			#endif
-				return Enum.ToObject(valueType, reader.Value);
+			    var value = reader.Value;
+			    if (value is string)
+			    {
+			        return Enum.Parse(valueType, (string)reader.Value);
+			    }
+			    else
+			    {
+			        return Enum.ToObject(valueType, reader.Value);
+			    }
 			}
 			// Try using an implicit conversion operator
 			MethodInfo convOp = GetConvOp(valueType, jsonType);

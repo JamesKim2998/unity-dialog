@@ -1,17 +1,17 @@
 {
     "book-lovecraft": [
         {
-            "text": "네크로노미콘의 역사",
-            "clear": false
+            "Text": "네크로노미콘의 역사",
+            "Clear": false
         },
         {
-            "text": "...\n",
-            "speed": 1,
-            "clear": false
+            "Text": "...\n",
+            "Speed": 1,
+            "Clear": false
         },
         {
-            "text": "Lovecraft? ",
-            "clear": false
+            "Text": "Lovecraft? ",
+            "Clear": false
         },
         "로맨스?..."
     ],

@@ -1,38 +1,38 @@
 {
     "opening-sponser-call_homeless": {
-        "view": {
-            "type": "Sprite",
-            "path": "Dialog/Talk/sample-sponser-mysterious"
+        "View": {
+            "Type": "Sprite",
+            "Path": "Dialog/Talk/sample-sponser-mysterious"
         },
-        "sentences": [
+        "Sentences": [
             "어이 거기",
             "그래 댁 말이야",
             "이 근방에서는 처음 보는 얼굴인데 이사라도 온 건가?"
         ],
-        "continueAuto": true,
-        "nextTalk": "opening-player-say_name"
+        "ContinueAuto": true,
+        "NextTalk": "opening-player-say_name"
     },
     "opening-player-say_name": {
-        "view": {
-            "type": "Sprite",
-            "path": "Dialog/Talk/sample-player",
-            "pivot": "Right"
+        "View": {
+            "Type": "Sprite",
+            "Path": "Dialog/Talk/sample-player",
+            "Pivot": "Right"
         },
-        "sentences": [
+        "Sentences": [
             "난 ‘뽀삐’야.",
             "......뭐, 표정이 왜 그래?",
             "원래 어느 집 개 이름이었는데 마음에 들어서 내 이름으로 하기로 했지.",
             "아무튼"
         ],
-        "continueAuto": true,
-        "nextTalk": "opening-sponser-recall"
+        "ContinueAuto": true,
+        "NextTalk": "opening-sponser-recall"
     },
     "opening-sponser-recall": {
-        "view": {
-            "type": "Sprite",
-            "path": "Dialog/Talk/sample-sponser"
+        "View": {
+            "Type": "Sprite",
+            "Path": "Dialog/Talk/sample-sponser"
         },
-        "sentences": [
+        "Sentences": [
             "......",
             "당신 인생 썰 이나 좀 풀어봐.",
             "어쩌다가 이 거리에 나앉은 거야?",
@@ -49,6 +49,6 @@
             "아무튼 친구",
             "저 옆 박스에 사니까 눈 마주치면 인사나 하자고!"
         ],
-        "continueAuto": true
+        "ContinueAuto": true
     }
 }

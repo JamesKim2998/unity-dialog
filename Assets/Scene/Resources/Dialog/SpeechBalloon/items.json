@@ -1,12 +1,12 @@
 {
   "TestObject": [
     {
-      "text": "오직 개발자를 위한 테스트용 오브젝트.",
-      "clear": false
+      "Text": "오직 개발자를 위한 테스트용 오브젝트.",
+      "Clear": false
     },
     {
-      "text": "\n아무런 특징이 없다.",
-      "clear": false
+      "Text": "\n아무런 특징이 없다.",
+      "Clear": false
     }
   ],
 
