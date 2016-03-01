@@ -55,7 +55,7 @@ namespace Dialog
 
         public bool TryAppendWithDefaultDirectory(string fileName, bool force)
         {
-            return TryAppend("Dialog/SpeechBalloonTalk/" + fileName, force);
+            return TryAppend(Config.Inst.DefaultSpeechBalloonTalkDbDirectory + fileName, force);
         }
     }
 }
