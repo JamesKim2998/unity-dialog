@@ -17,6 +17,7 @@ public class SpeechBalloonDebugEditor : ComponentEditor<SpeechBalloonDebug>
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
+        if (!Application.isPlaying) return;
         DrawLoadButton();
         DrawPlay();
     }
@@ -50,6 +51,7 @@ public class TalkDebugEditor : ComponentEditor<TalkDebug>
     public override void OnInspectorGUI()
     {
         // base.OnInspectorGUI();
+        if (!Application.isPlaying) return;
         DrawLoadButton();
         DrawPlay();
         DrawControl();
