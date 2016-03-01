@@ -1,0 +1,36 @@
+{
+    "sing-a-song-1": {
+        "view": {
+            "type": "Sprite",
+            "path": "Dialog/Talk/sample-owner"
+        },
+        "pivot": "Left",
+        "sentences": [
+            "너를 만난 이후~\n난 행복했었지~",
+            {
+                "text": "<color=#ff0000>하지만...</color>",
+                "speed": 1
+            },
+            "나는 집에 가야해~\n네가 싫어서가 아니야~",
+            "그건 이미 예정됐던 일~\n때가 되서 가야하는 거야~",
+            "나는 집에 가야해~"
+        ],
+        "continueAuto": true,
+        "nextTalk": "sing-a-song-2"
+    },
+    "sing-a-song-2": {
+        "view": {
+            "type": "Prefab",
+            "path": "Dialog/Talk/sample-player",
+            "pivot": "Center",
+            "animationTrigger": "sample"
+        },
+        "sentences": [
+            {
+                "text": "저게 지금 미쳤나?\n지금 대체...",
+                "speed": 1
+            }
+        ],
+        "continueAuto": false
+    }
+}

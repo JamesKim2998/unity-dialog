@@ -1,0 +1,23 @@
+{
+    "book-lovecraft": [
+        {
+            "text": "네크로노미콘의 역사",
+            "clear": false
+        },
+        {
+            "text": "...\n",
+            "speed": 1,
+            "clear": false
+        },
+        {
+            "text": "Lovecraft? ",
+            "clear": false
+        },
+        "로맨스?..."
+    ],
+    "rich-text": [
+        "이것은 <color=#ff0000>붉은색</color>이다.",
+        "이것은 <b>볼드체</b>이다.",
+        "이것은 <size=50>졸라짱센투명드래곤</size>이다."
+    ]
+}

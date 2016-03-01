@@ -1,0 +1,191 @@
+{
+  "TestObject": [
+    {
+      "text": "오직 개발자를 위한 테스트용 오브젝트.",
+      "clear": false
+    },
+    {
+      "text": "\n아무런 특징이 없다.",
+      "clear": false
+    }
+  ],
+
+  //bathroom
+
+  "Toilet bowl": [
+    "일반적인 변기다."
+  ],
+
+  "Bathtub": [
+    "튼튼한 욕조다."
+  ],
+
+  "Curtain-hanger": [
+    "불투명한 커튼이다."
+  ],
+
+  "Basin": [
+    "따뜻한물 찬물이 잘 나온다."
+  ],
+
+
+  //daughter
+
+  "Bed-daughter room": [
+    "작은 침대다."
+  ],
+
+  "Shelf-daughter room": [
+    "책꽂이 위에 스케치북이 보이는것 같다."
+  ],
+
+  "Sketch book": [
+    "오래된 스케치북이다 내용물을 봐볼까?"
+  ],
+
+  "Desk-daughter room": [
+    "내가 쓰기에는 너무 낮은 책상이다."
+  ],
+
+  "Chair-daughter room": [
+    "내가 쓰기에는 너무 낮은 의자다."
+  ],
+
+  "Bear": [
+    "오래되어 털이 조금 빠진 곰인형이다."
+  ],
+
+  //kitchen
+
+  "Sink": [
+    "무언가를 수납하기에 좋아보인다."
+  ],
+
+  "Refrigerator": [
+    "꽤 크기가 큰 냉장고다. 음작을 잔뜩 보관 할수 있어보인다."
+  ],
+
+  "Chair-kitchen": [
+    "푹신푹신해서 몸이 빠져들것 같은 의자다."
+  ],
+
+  "Table": [
+    "튼튼한 테이블이다. 식사를 하기에 좋아보인다."
+  ],
+
+  "Trash can": [
+    "평범한 가정집의 쓰레기통이다."
+  ],
+
+  //study room
+
+  "Shelf Normal left": [
+    "각종책이 있다. 무언가 있을것 같다."
+  ],
+
+  "Shelf Normal right": [
+    "각종책이 있다. 무언가 있을것 같다."
+  ],
+
+  "Diary": [
+    "2016"
+  ],
+
+  "Chair-study room": [
+    "딱딱한 의자다."
+  ],
+
+  "Door hidden room": [
+    "레버가 있다. 어디로 연결된 문이지?"
+  ],
+
+  "Desk-study room": [
+    "오래되었지만 원목으로 만들어 튼튼해 보이는 책상이다."
+  ],
+
+  "Desk-Drawer": [
+    "손잡이가 낡은 서랍이다."
+  ],
+
+
+  //living room
+
+  "Big sofa": [
+    "푹신한 3인용 소파다. 세밍이 앉으면 오븟할것 같다"
+  ],
+
+  "TV": [
+    "60in 최신형 TV이다. 집주인은 TV보는걸 좋아하는것 같다."
+  ],
+
+  "Glass Table": [
+    "뒤가 비쳐 보이는 SiO2 재질의 테이블이다."
+  ],
+
+  //bed room
+
+  "Closet-bed room": [
+    "깔끔하지만 오랫동안 입은것 같지않은 낡은 정장이 한벌 있다.\n 평범한 옷들이 있다.\n	숨을수 있어 보인다."
+  ],
+
+  "Lamp": [
+    "1500lux? 침실에 두기에는 너무 밝은 조명인데?"
+  ],
+
+  "2p bed": [
+    "두명이서 누우면 적당한 크기의 침대다. 한쪽에만 얼룩이 있다."
+  ],
+
+  //storage
+
+  "Storage Plant Withered": [
+    "죽어잇는 식물이다. 왜 안버리고 그냥있지?"
+  ],
+
+  "Storage Box left": [
+    "큰 이블과 작고 귀여운 분홍핵 이불이 있다."
+  ],
+
+  "Storage Box right": [
+    "각종 여성용 여름옷과 어린아이의 옷이 있다."
+  ],
+
+  "Washer Opened": [
+    "아무것도 없는 세탁기이다."
+  ],
+
+  "Washer Closed": [
+    "세탁기가 돌아가고있다."
+  ],
+
+  "Dirty Cloth": [
+    "안에 빨랫감이 있다."
+  ],
+
+  //basement
+
+  "Boiler": [
+    "따뜻한 물을 공급해주는 낡은 보일러, 왠지 고장나도 고치기 쉬워보인다."
+  ],
+
+  "Switchboard": [
+    "이 전원을 내리면 전기가 들어오지 않겠찌?"
+  ],
+
+
+  //hidden room
+  "Desk-hidden room": [
+    "단단한 책상이다. 오래되어 보인다."
+  ],
+
+  "Chair-hidden room": [
+    "단단한 의자다. 오래되어 보인다."
+  ],
+
+  "Diary-hidden room": [
+    "2016, 서재에있던 일기장과 같은 표지를 가지고 있다."
+  ]
+
+
+}
+

@@ -1,0 +1,9 @@
+{
+    "inform-move_keys": [
+        "w, a, s, d키를 이용해서\n이동을 한다."
+    ],
+    "inform-go_ahead": [
+        "이제 정말로 끝이다...",
+        "...기억이 맞다면\n이 <color=#ff0000>길끝에</color> 역이 있을거다"
+    ]
+}
