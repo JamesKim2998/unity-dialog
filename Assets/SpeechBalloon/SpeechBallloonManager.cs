@@ -5,18 +5,6 @@ using UnityEngine;
 
 public static class SpeechBalloonManager
 {
-    public static bool TryPlay(string key, HouseSceneObjectType target)
-    {
-        var targetObj = HouseSceneObjects.inst.Find(target);
-        if (targetObj == null)
-        {
-            Debug.LogError("no target object.");
-            return false;
-        }
-
-        return TryPlay(key, targetObj);
-    }
-
     public static SpeechBalloonPlayer TryPlay(string key, GameObject target)
     {
         return TryPlay(SpeechBalloonDb.inst.Get(key), target);

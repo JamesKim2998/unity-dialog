@@ -6,6 +6,7 @@ using UnityEngine;
 public class SpeechBalloonDebugEditor : ComponentEditor<SpeechBalloonDebug>
 {
     private List<string> _fileList = new List<string>();
+    private static GameObject _target;
 
     protected override void OnEnable()
     {
@@ -15,7 +16,7 @@ public class SpeechBalloonDebugEditor : ComponentEditor<SpeechBalloonDebug>
 
     public override void OnInspectorGUI()
     {
-        // base.OnInspectorGUI();
+        base.OnInspectorGUI();
         DrawLoadButton();
         DrawPlay();
     }
@@ -29,7 +30,7 @@ public class SpeechBalloonDebugEditor : ComponentEditor<SpeechBalloonDebug>
     private void DrawPlay()
     {
         GUILayout.Label("dialog");
-        EditorUtil.DrawButtonList(SpeechBalloonDb.inst, x => x.Key, kv => SpeechBalloonManager.TryPlay(kv.Key, HouseSceneObjectType.Character));
+        EditorUtil.DrawButtonList(SpeechBalloonDb.inst, x => x.Key, kv => SpeechBalloonManager.TryPlay(kv.Key, Target.Target));
     }
 }
 

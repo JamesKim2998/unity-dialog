@@ -1,4 +1,6 @@
 *.swp
+*.sln
+*.csproj
 
 Library
 Temp
