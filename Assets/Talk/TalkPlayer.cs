@@ -6,7 +6,7 @@ namespace Dialog
     public class TalkPlayer : MonoBehaviour
     {
         private TalkSentenceSequence _dialog;
-        private DialogTextPlayer _dialogTextPlayer;
+        private TextPlayer _textPlayer;
         [SerializeField]
         private Text _text;
         private GameObject _view;
@@ -23,7 +23,7 @@ namespace Dialog
 
         public bool IsCurrentSentenceDone
         {
-            get { return _dialogTextPlayer == null || _dialogTextPlayer.IsDone; }
+            get { return _textPlayer == null || _textPlayer.IsDone; }
         }
 
         private void Update()
@@ -34,9 +34,9 @@ namespace Dialog
 
         private void UpdateText(float dt)
         {
-            if (_dialogTextPlayer == null) return;
-            _dialogTextPlayer.Update(dt);
-            _text.text = _dialogTextPlayer.Text;
+            if (_textPlayer == null) return;
+            _textPlayer.Update(dt);
+            _text.text = _textPlayer.Text;
         }
 
         private void ContinueIfPossible()
@@ -69,7 +69,7 @@ namespace Dialog
         private void ForcePlay(TalkSentenceSequence dialog)
         {
             _dialog = dialog;
-            _dialogTextPlayer = new DialogTextPlayer(new DialogTextPlayerSource(_dialog.Sentences));
+            _textPlayer = new TextPlayer(new TextPlayerSource(_dialog.Sentences));
             if (_view != null) Destroy(_view);
             if (dialog.View != null) _view = MakeView(dialog.View);
             _text.text = "";

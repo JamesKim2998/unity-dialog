@@ -5,7 +5,7 @@ namespace Dialog
 {
     public class SpeechBalloonPlayer : MonoBehaviour
     {
-        private DialogTextPlayer _dialogTextPlayer;
+        private TextPlayer _textPlayer;
         private bool _isFinished;
         private bool _isHavePlayed;
         private SpeechBalloonUi _ui;
@@ -13,7 +13,7 @@ namespace Dialog
 
         public bool IsPlaying
         {
-            get { return _dialogTextPlayer != null && !_dialogTextPlayer.IsDone; }
+            get { return _textPlayer != null && !_textPlayer.IsDone; }
         }
 
         private void Start()
@@ -47,7 +47,7 @@ namespace Dialog
             UpdateLetter(dt);
 
             if (!IsPlaying && _isHavePlayed && !_isFinished)
-                Invoke("Finish", DialogTextPlayer.SentenceProceedDelay);
+                Invoke("Finish", TextPlayer.SentenceProceedDelay);
         }
 
         private void UpdatePosition()
@@ -57,12 +57,12 @@ namespace Dialog
 
         private void UpdateLetter(float dt)
         {
-            if (_dialogTextPlayer == null) return;
-            _dialogTextPlayer.Update(dt);
-            _ui.SetText(_dialogTextPlayer.Text);
+            if (_textPlayer == null) return;
+            _textPlayer.Update(dt);
+            _ui.SetText(_textPlayer.Text);
         }
 
-        public void Play(DialogSentenceSequence dialog)
+        public void Play(SentenceSequence dialog)
         {
             if (IsPlaying)
             {
@@ -73,7 +73,7 @@ namespace Dialog
             var canvas = FindObjectOfType<Canvas>();
             if (canvas == null) return;
 
-            _dialogTextPlayer = new DialogTextPlayer(new DialogTextPlayerSource(dialog));
+            _textPlayer = new TextPlayer(new TextPlayerSource(dialog));
 
             _ui = Config.Inst.SpeechBalloonUi.Instantiate();
             _ui.transform.SetParent(canvas.transform, false);
@@ -85,7 +85,7 @@ namespace Dialog
         public void Reset()
         {
             if (_ui != null) Destroy(_ui.gameObject);
-            _dialogTextPlayer = null;
+            _textPlayer = null;
         }
     }
 }

@@ -29,11 +29,11 @@ namespace Dialog
 
     public class TalkSentenceSequence
     {
-        public static TalkSentenceSequence Error = new TalkSentenceSequence { Sentences = DialogSentenceSequence.Error };
+        public static TalkSentenceSequence Error = new TalkSentenceSequence { Sentences = SentenceSequence.Error };
         public bool ContinueAuto;
         public string NextTalk;
         [JsonIgnore]
-        public DialogSentenceSequence Sentences;
+        public SentenceSequence Sentences;
         public TalkView View;
     }
 
@@ -47,7 +47,7 @@ namespace Dialog
         TalkSentenceSequence ITalkSentenceParser.ParseValue(JsonData raw)
         {
             var ret = raw.Convert<TalkSentenceSequence>();
-            ret.Sentences = DialogSentenceSequence.Parse(raw["sentences"]);
+            ret.Sentences = SentenceSequence.Parse(raw["sentences"]);
             return ret;
         }
     }

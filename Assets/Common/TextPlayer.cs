@@ -3,44 +3,44 @@ using UnityEngine;
 
 namespace Dialog
 {
-    public interface IDialogTextPlayerSource
+    public interface ITextPlayerSource
     {
         int Count { get; }
         DialogSentence this[int i] { get; }
     }
 
-    public class DialogTextPlayerSource : IDialogTextPlayerSource
+    public class TextPlayerSource : ITextPlayerSource
     {
-        private readonly DialogSentenceSequence _sentenceSequence;
+        private readonly SentenceSequence _sentenceSequence;
 
-        public DialogTextPlayerSource(DialogSentenceSequence sentenceSequence)
+        public TextPlayerSource(SentenceSequence sentenceSequence)
         {
             _sentenceSequence = sentenceSequence;
         }
 
-        int IDialogTextPlayerSource.Count
+        int ITextPlayerSource.Count
         {
             get { return _sentenceSequence.Sentences.Count; }
         }
 
-        DialogSentence IDialogTextPlayerSource.this[int i]
+        DialogSentence ITextPlayerSource.this[int i]
         {
             get { return _sentenceSequence.Sentences[i]; }
         }
     }
 
-    public class DialogTextPlayer
+    public class TextPlayer
     {
         public const float SentenceProceedDelay = 1;
         private const float LettersPerSecond = 6;
         private readonly RichTextStroller _richTextStroller = new RichTextStroller();
-        private readonly IDialogTextPlayerSource _source;
+        private readonly ITextPlayerSource _source;
         private float _numberOfLettersToShow;
         private string _oldText;
         private float _timeLeftToProceed = SentenceProceedDelay;
         public Action<int> OnSentenceProceed;
 
-        public DialogTextPlayer(IDialogTextPlayerSource source)
+        public TextPlayer(ITextPlayerSource source)
         {
             Text = "";
             _source = source;

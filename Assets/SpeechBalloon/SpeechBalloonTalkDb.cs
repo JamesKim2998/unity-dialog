@@ -24,18 +24,18 @@ namespace Dialog
         public static TargetedDialogSentenceSequence Error = new TargetedDialogSentenceSequence
         {
             Target = "",
-            Sentences = DialogSentenceSequence.Error
+            Sentences = SentenceSequence.Error
         };
 
-        public DialogSentenceSequence Sentences;
+        public SentenceSequence Sentences;
         public string Target;
 
         public static TargetedDialogSentenceSequence Parse(JsonData raw)
         {
             return new TargetedDialogSentenceSequence
             {
-                Target = (string)raw["target"],
-                Sentences = DialogSentenceSequence.Parse(raw["sentences"])
+                Target = (string)raw["Target"],
+                Sentences = SentenceSequence.Parse(raw["Sentences"])
             };
         }
     }

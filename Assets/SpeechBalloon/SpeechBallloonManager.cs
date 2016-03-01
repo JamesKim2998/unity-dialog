@@ -12,7 +12,7 @@ namespace Dialog
             return TryPlay(SpeechBalloonDb.Inst.Get(key), target);
         }
 
-        public static SpeechBalloonPlayer TryPlay(DialogSentenceSequence sentences, GameObject target)
+        public static SpeechBalloonPlayer TryPlay(SentenceSequence sentences, GameObject target)
         {
             var player = target.AddComponent<SpeechBalloonPlayer>();
             player.Play(sentences);

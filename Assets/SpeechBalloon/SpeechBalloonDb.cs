@@ -2,22 +2,22 @@
 
 namespace Dialog
 {
-    using DialogSentenceSequenceJsonDbParser = IJsonDbParser<string, DialogSentenceSequence>;
+    using SentenceSequenceJsonDbParser = IJsonDbParser<string, SentenceSequence>;
 
-    public class SpeechBalloonDbParser : DialogSentenceSequenceJsonDbParser
+    public class SpeechBalloonDbParser : SentenceSequenceJsonDbParser
     {
-        string DialogSentenceSequenceJsonDbParser.ParseKey(string raw)
+        string SentenceSequenceJsonDbParser.ParseKey(string raw)
         {
             return raw;
         }
 
-        DialogSentenceSequence DialogSentenceSequenceJsonDbParser.ParseValue(JsonData raw)
+        SentenceSequence SentenceSequenceJsonDbParser.ParseValue(JsonData raw)
         {
-            return DialogSentenceSequence.Parse(raw);
+            return SentenceSequence.Parse(raw);
         }
     }
 
-    public class SpeechBalloonDb : JsonDb<string, DialogSentenceSequence>
+    public class SpeechBalloonDb : JsonDb<string, SentenceSequence>
     {
         public static SpeechBalloonDb Inst = new SpeechBalloonDb();
 
@@ -25,9 +25,9 @@ namespace Dialog
         {
         }
 
-        public DialogSentenceSequence Get(string key)
+        public SentenceSequence Get(string key)
         {
-            return GetOrDefault(key, DialogSentenceSequence.Error);
+            return GetOrDefault(key, SentenceSequence.Error);
         }
 
         public bool TryAppendWithDefaultDirectory(string fileName, bool force)

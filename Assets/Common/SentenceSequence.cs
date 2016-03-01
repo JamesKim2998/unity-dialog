@@ -34,13 +34,13 @@ namespace Dialog
         }
     }
 
-    public class DialogSentenceSequence
+    public class SentenceSequence
     {
-        public static readonly DialogSentenceSequence Error;
+        public static readonly SentenceSequence Error;
 
-        static DialogSentenceSequence()
+        static SentenceSequence()
         {
-            Error = new DialogSentenceSequence
+            Error = new SentenceSequence
             {
                 Sentences = new List<DialogSentence>
             {
@@ -51,9 +51,9 @@ namespace Dialog
 
         public List<DialogSentence> Sentences { get; private set; }
 
-        public static DialogSentenceSequence Parse(JsonData data)
+        public static SentenceSequence Parse(JsonData data)
         {
-            var ret = new DialogSentenceSequence();
+            var ret = new SentenceSequence();
 
             if (data.IsArray)
             {

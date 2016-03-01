@@ -248,23 +248,5 @@ namespace Dialog
 
             return true;
         }
-
-        public static bool Save<T>(string path, T data)
-        {
-            try
-            {
-                using (var fs = new FileStream(path, FileMode.Create, FileAccess.ReadWrite))
-                using (var writer = new StreamWriter(fs))
-                {
-                    JsonMapper.ToJson(data, new JsonWriter(writer));
-                    return true;
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-                return false;
-            }
-        }
     }
 }

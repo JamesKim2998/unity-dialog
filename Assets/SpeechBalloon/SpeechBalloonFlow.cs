@@ -6,12 +6,12 @@ namespace Dialog
 {
     public class SpeechBalloonFlow
     {
-        private readonly List<DialogSentenceSequence> _flow;
+        private readonly List<SentenceSequence> _flow;
         private readonly Func<int, GameObject> _targetProvider;
         public Action OnFinishAll;
         public Action<int> OnFinishOne;
 
-        public SpeechBalloonFlow(List<DialogSentenceSequence> flow, Func<int, GameObject> targetProvider)
+        public SpeechBalloonFlow(List<SentenceSequence> flow, Func<int, GameObject> targetProvider)
         {
             _flow = flow;
             _targetProvider = targetProvider;
