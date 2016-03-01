@@ -71,7 +71,12 @@ namespace Dialog
             }
 
             var canvas = FindObjectOfType<Canvas>();
-            if (canvas == null) return;
+            if (canvas == null)
+            {
+                Debug.LogError("no canvas.");
+                Destroy(this);
+                return;
+            }
 
             _textPlayer = new TextPlayer(new TextPlayerSource(dialog));
 
