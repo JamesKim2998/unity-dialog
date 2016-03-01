@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
-public class SpeechBalloonDebug : MonoBehaviour
+namespace Dialog
 {
-    public GameObject Target;
+    public class SpeechBalloonDebug : MonoBehaviour
+    {
+        public GameObject Target;
+    }
 }

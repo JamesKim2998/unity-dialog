@@ -5,406 +5,409 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public enum PositionType
+namespace Dialog
 {
-    Front,
-    Back,
-}
-
-public static class CollectionHelper
-{
-    private static void LogEmpty()
+    public enum PositionType
     {
-        Debug.LogError("empty.");
+        Front,
+        Back,
     }
 
-    private static void LogKeyExists<T>(T key)
+    public static class CollectionHelper
     {
-        Debug.LogError("key exists: " + key);
-    }
-
-    private static void LogKeyNotExists<T>(T key)
-    {
-        Debug.LogError("key not exists: " + key);
-    }
-
-    public static bool Empty<T>(this T c) where T : ICollection
-    {
-        return c.Count == 0;
-    }
-
-    public static IEnumerable<T> GetReverseEnum<T>(this T[] c)
-    {
-        for (var i = c.Length - 1; i >= 0; i--)
-            yield return c[i];
-    }
-
-    public static int? SetFirstIf<T>(this T[] c, T value, Predicate<T> pred) where T : class
-    {
-        var i = 0;
-
-        foreach (var data in c)
+        private static void LogEmpty()
         {
-            if (pred(data))
+            Debug.LogError("empty.");
+        }
+
+        private static void LogKeyExists<T>(T key)
+        {
+            Debug.LogError("key exists: " + key);
+        }
+
+        private static void LogKeyNotExists<T>(T key)
+        {
+            Debug.LogError("key not exists: " + key);
+        }
+
+        public static bool Empty<T>(this T c) where T : ICollection
+        {
+            return c.Count == 0;
+        }
+
+        public static IEnumerable<T> GetReverseEnum<T>(this T[] c)
+        {
+            for (var i = c.Length - 1; i >= 0; i--)
+                yield return c[i];
+        }
+
+        public static int? SetFirstIf<T>(this T[] c, T value, Predicate<T> pred) where T : class
+        {
+            var i = 0;
+
+            foreach (var data in c)
             {
-                c[i] = value;
-                return i;
+                if (pred(data))
+                {
+                    c[i] = value;
+                    return i;
+                }
+
+                ++i;
             }
 
-            ++i;
+            return null;
         }
 
-        return null;
-    }
-
-    public static T GetOrDefault<T>(this List<T> c, int i)
-    {
-        return i < c.Count ? c[i] : default(T);
-    }
-
-    public static T FindOfDefault<T>(this List<T> c, Predicate<T> pred, T defaultValue) where T : class
-    {
-        var found = c.Find(pred);
-        if (found == default(T))
+        public static T GetOrDefault<T>(this List<T> c, int i)
         {
-            Debug.LogWarning("not found. return default.");
-            return defaultValue;
+            return i < c.Count ? c[i] : default(T);
         }
 
-        return found;
-    }
-
-    public static bool RemoveBack<T>(this List<T> c)
-    {
-        if (c.Count == 0)
+        public static T FindOfDefault<T>(this List<T> c, Predicate<T> pred, T defaultValue) where T : class
         {
-            LogEmpty();
+            var found = c.Find(pred);
+            if (found == default(T))
+            {
+                Debug.LogWarning("not found. return default.");
+                return defaultValue;
+            }
+
+            return found;
+        }
+
+        public static bool RemoveBack<T>(this List<T> c)
+        {
+            if (c.Count == 0)
+            {
+                LogEmpty();
+                return false;
+            }
+
+            c.RemoveAt(c.Count - 1);
+            return true;
+        }
+
+        public static bool PopBack<T>(this List<T> c, out T val)
+        {
+            if (c.Count == 0)
+            {
+                LogEmpty();
+                val = default(T);
+                return false;
+            }
+
+            val = c[c.Count - 1];
+            c.RemoveAt(c.Count - 1);
+            return true;
+        }
+
+        public static bool RemoveIf<T>(this IList<T> c, Predicate<T> pred)
+        {
+            var i = 0;
+
+            foreach (var data in c)
+            {
+                if (pred(data))
+                {
+                    c.RemoveAt(i);
+                    return true;
+                }
+
+                ++i;
+            }
+
             return false;
         }
 
-        c.RemoveAt(c.Count - 1);
-        return true;
-    }
-
-    public static bool PopBack<T>(this List<T> c, out T val)
-    {
-        if (c.Count == 0)
+        public static T FindAndRemoveIf<T>(this IList<T> c, Predicate<T> pred)
         {
-            LogEmpty();
-            val = default(T);
-            return false;
-        }
+            var i = 0;
 
-        val = c[c.Count - 1];
-        c.RemoveAt(c.Count - 1);
-        return true;
-    }
-
-    public static bool RemoveIf<T>(this IList<T> c, Predicate<T> pred)
-    {
-        var i = 0;
-
-        foreach (var data in c)
-        {
-            if (pred(data))
+            foreach (var data in c)
             {
-                c.RemoveAt(i);
-                return true;
+                if (pred(data))
+                {
+                    c.RemoveAt(i);
+                    return data;
+                }
+
+                ++i;
             }
 
-            ++i;
+            return default(T);
         }
 
-        return false;
-    }
-
-    public static T FindAndRemoveIf<T>(this IList<T> c, Predicate<T> pred)
-    {
-        var i = 0;
-
-        foreach (var data in c)
+        public static int? SetFirstIf<T>(this List<T> c, T value, Predicate<T> pred) where T : class
         {
-            if (pred(data))
+            var i = 0;
+
+            foreach (var data in c)
             {
-                c.RemoveAt(i);
-                return data;
+                if (pred(data))
+                {
+                    c[i] = value;
+                    return i;
+                }
+
+                ++i;
             }
 
-            ++i;
+            return null;
         }
 
-        return default(T);
-    }
-
-    public static int? SetFirstIf<T>(this List<T> c, T value, Predicate<T> pred) where T : class
-    {
-        var i = 0;
-
-        foreach (var data in c)
+        public static void Resize<T>(this List<T> c, int size, T init = default(T))
         {
-            if (pred(data))
+            var curSize = c.Count;
+
+            if (size < curSize)
             {
-                c[i] = value;
-                return i;
+                c.RemoveRange(size, curSize - size);
+            }
+            else if (size > curSize)
+            {
+                if (size > c.Capacity)
+                    c.Capacity = size;
+                c.AddRange(Enumerable.Repeat(init, size - curSize));
+            }
+        }
+
+        public static IEnumerable<T> GetReverseEnum<T>(this List<T> c)
+        {
+            for (var i = c.Count - 1; i >= 0; i--)
+                yield return c[i];
+        }
+
+        public static int BinarySearch<T>(this IList<T> c, Func<T, int> cmp)
+        {
+            var min = 0;
+            var max = c.Count - 1;
+
+            while (min <= max)
+            {
+                var mid = (min + max) / 2;
+                var cmpVal = cmp(c[mid]);
+
+                if (cmpVal == 0)
+                    return mid;
+
+                if (cmpVal < 0)
+                    min = mid + 1;
+                else
+                    max = mid - 1;
             }
 
-            ++i;
+            return ~min;
         }
 
-        return null;
-    }
-
-    public static void Resize<T>(this List<T> c, int size, T init = default(T))
-    {
-        var curSize = c.Count;
-
-        if (size < curSize)
+        public static T Rand<T>(this IList<T> c)
         {
-            c.RemoveRange(size, curSize - size);
+            System.Diagnostics.Debug.Assert(c.Count != 0);
+            return c[Random.Range(0, c.Count)];
         }
-        else if (size > curSize)
+
+        public static void Shuffle<T>(this IList<T> c)
         {
-            if (size > c.Capacity)
-                c.Capacity = size;
-            c.AddRange(Enumerable.Repeat(init, size - curSize));
+            var rng = new System.Random();
+            var n = c.Count;
+            while (n > 1)
+            {
+                --n;
+                var k = rng.Next(n + 1);
+                var value = c[k];
+                c[k] = c[n];
+                c[n] = value;
+            }
         }
-    }
 
-    public static IEnumerable<T> GetReverseEnum<T>(this List<T> c)
-    {
-        for (var i = c.Count - 1; i >= 0; i--)
-            yield return c[i];
-    }
-
-    public static int BinarySearch<T>(this IList<T> c, Func<T, int> cmp)
-    {
-        var min = 0;
-        var max = c.Count - 1;
-
-        while (min <= max)
+        public static Dictionary<K, V> Map<O, K, V>(this List<O> c, Func<O, KeyValuePair<K, V>> mapper)
         {
-            var mid = (min + max)/2;
-            var cmpVal = cmp(c[mid]);
+            var ret = new Dictionary<K, V>(c.Count);
+            foreach (var val in c)
+                ret.Add(mapper(val));
+            return ret;
+        }
 
-            if (cmpVal == 0)
-                return mid;
-
-            if (cmpVal < 0)
-                min = mid + 1;
+        public static void Add<T>(this LinkedList<T> c, T val, PositionType position)
+        {
+            if (position == PositionType.Front)
+                c.AddFirst(val);
             else
-                max = mid - 1;
+                c.AddLast(val);
         }
 
-        return ~min;
-    }
-
-    public static T Rand<T>(this IList<T> c)
-    {
-        System.Diagnostics.Debug.Assert(c.Count != 0);
-        return c[Random.Range(0, c.Count)];
-    }
-
-    public static void Shuffle<T>(this IList<T> c)
-    {
-        var rng = new System.Random();
-        var n = c.Count;
-        while (n > 1)
+        public static bool RemoveIf<T>(this LinkedList<T> c, Predicate<T> pred)
         {
-            --n;
-            var k = rng.Next(n + 1);
-            var value = c[k];
-            c[k] = c[n];
-            c[n] = value;
-        }
-    }
-
-    public static Dictionary<K, V> Map<O, K, V>(this List<O> c, Func<O, KeyValuePair<K, V>> mapper)
-    {
-        var ret = new Dictionary<K, V>(c.Count);
-        foreach (var val in c)
-            ret.Add(mapper(val));
-        return ret;
-    }
-
-    public static void Add<T>(this LinkedList<T> c, T val, PositionType position)
-    {
-        if (position == PositionType.Front)
-            c.AddFirst(val);
-        else
-            c.AddLast(val);
-    }
-
-    public static bool RemoveIf<T>(this LinkedList<T> c, Predicate<T> pred)
-    {
-        for (var node = c.First; node != null; node = node.Next)
-        {
-            if (pred(node.Value))
+            for (var node = c.First; node != null; node = node.Next)
             {
-                c.Remove(node);
+                if (pred(node.Value))
+                {
+                    c.Remove(node);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool TryPopLast<T>(this LinkedList<T> c, out T val)
+        {
+            if (c.Empty())
+            {
+                val = default(T);
+                return false;
+            }
+
+            val = c.Last.Value;
+            c.RemoveLast();
+            return true;
+        }
+
+        public static T PopLast<T>(this LinkedList<T> c)
+        {
+            T ret;
+            if (!c.TryPopLast(out ret))
+                LogEmpty();
+            return ret;
+        }
+
+        public static T PopOrDefault<T>(this LinkedList<T> c, T defaultValue)
+        {
+            T ret;
+            if (!c.TryPopLast(out ret))
+                return defaultValue;
+            return ret;
+        }
+
+        public static bool TryGet<K, V>(this IDictionary<K, V> c, K key, out V val)
+        {
+            if (!c.TryGetValue(key, out val))
+            {
+                Debug.LogWarning("key " + key + " not exists.");
+                return false;
+            }
+            return true;
+        }
+
+        public static bool TryGetAndParse<K>(this IDictionary<K, string> c, K key, out int val)
+        {
+            string valStr;
+
+            if (!c.TryGet(key, out valStr))
+            {
+                val = 0;
+                return false;
+            }
+
+            return int.TryParse(valStr, out val);
+        }
+
+        public static V GetOrDefault<K, V>(this IDictionary<K, V> c, K key, V _default = default(V))
+        {
+            V val;
+            return c.TryGetValue(key, out val) ? val : _default;
+        }
+
+        public static V GetOrPut<K, V>(this IDictionary<K, V> c, K key) where V : class, new()
+        {
+            var val = c.GetOrDefault(key);
+            if (val != null)
+                return val;
+
+            val = new V();
+            c[key] = val;
+            return val;
+        }
+
+        public static void Add<K, V>(this IDictionary<K, V> c, KeyValuePair<K, V> kv)
+        {
+            c.Add(kv.Key, kv.Value);
+        }
+
+        public static bool TryAdd<K, V>(this IDictionary<K, V> c, K key, V val)
+        {
+            try
+            {
+                c.Add(key, val);
                 return true;
+            }
+            catch (Exception)
+            {
+                LogKeyExists(key);
+                return false;
             }
         }
 
-        return false;
-    }
-
-    public static bool TryPopLast<T>(this LinkedList<T> c, out T val)
-    {
-        if (c.Empty())
+        public static bool TryRemove<K, V>(this IDictionary<K, V> c, K key)
         {
-            val = default(T);
+            var _ret = c.Remove(key);
+            if (!_ret) LogKeyNotExists(key);
+            return _ret;
+        }
+
+        public static bool TryGetAndRemove<K, V>(this IDictionary<K, V> c, K key, out V val)
+        {
+            if (c.TryGetValue(key, out val))
+            {
+                c.Remove(key);
+                return true;
+            }
             return false;
         }
 
-        val = c.Last.Value;
-        c.RemoveLast();
-        return true;
-    }
-
-    public static T PopLast<T>(this LinkedList<T> c)
-    {
-        T ret;
-        if (!c.TryPopLast(out ret))
-            LogEmpty();
-        return ret;
-    }
-
-    public static T PopOrDefault<T>(this LinkedList<T> c, T defaultValue)
-    {
-        T ret;
-        if (!c.TryPopLast(out ret))
-            return defaultValue;
-        return ret;
-    }
-
-    public static bool TryGet<K, V>(this IDictionary<K, V> c, K key, out V val)
-    {
-        if (!c.TryGetValue(key, out val))
+        public static bool GetAndRemove<K, V>(this IDictionary<K, V> c, K key, out V val)
         {
-            Debug.LogWarning("key " + key + " not exists.");
-            return false;
-        }
-        return true;
-    }
+            if (!c.TryGetAndRemove(key, out val))
+            {
+                LogKeyNotExists(key);
+                return false;
+            }
 
-    public static bool TryGetAndParse<K>(this IDictionary<K, string> c, K key, out int val)
-    {
-        string valStr;
-
-        if (!c.TryGet(key, out valStr))
-        {
-            val = 0;
-            return false;
-        }
-
-        return int.TryParse(valStr, out val);
-    }
-
-    public static V GetOrDefault<K, V>(this IDictionary<K, V> c, K key, V _default = default(V))
-    {
-        V val;
-        return c.TryGetValue(key, out val) ? val : _default;
-    }
-
-    public static V GetOrPut<K, V>(this IDictionary<K, V> c, K key) where V : class, new()
-    {
-        var val = c.GetOrDefault(key);
-        if (val != null)
-            return val;
-
-        val = new V();
-        c[key] = val;
-        return val;
-    }
-
-    public static void Add<K, V>(this IDictionary<K, V> c, KeyValuePair<K, V> kv)
-    {
-        c.Add(kv.Key, kv.Value);
-    }
-
-    public static bool TryAdd<K, V>(this IDictionary<K, V> c, K key, V val)
-    {
-        try
-        {
-            c.Add(key, val);
             return true;
         }
-        catch (Exception)
+
+        public static void RemoveIf<K, V>(this IDictionary<K, V> c, Func<K, V, bool> pred)
         {
-            LogKeyExists(key);
+            var remove = new List<K>();
+
+            foreach (var kv in c)
+            {
+                if (pred(kv.Key, kv.Value))
+                    remove.Add(kv.Key);
+            }
+
+            foreach (var key in remove)
+            {
+                c.Remove(key);
+            }
+        }
+
+        public static Dictionary<K2, V2> Map<K1, V1, K2, V2>(this IDictionary<K1, V1> c,
+            Func<K1, V1, KeyValuePair<K2, V2>> mapper)
+        {
+            var ret = new Dictionary<K2, V2>(c.Count);
+            foreach (var kv in c)
+                ret.Add(mapper(kv.Key, kv.Value));
+            return ret;
+        }
+
+        public static bool Empty<T>(this HashSet<T> c)
+        {
+            return c.Count == 0;
+        }
+
+        public static bool TryAdd<T>(this HashSet<T> c, T val)
+        {
+            if (c.Add(val)) return true;
+            LogKeyExists(val);
             return false;
         }
-    }
 
-    public static bool TryRemove<K, V>(this IDictionary<K, V> c, K key)
-    {
-        var _ret = c.Remove(key);
-        if (!_ret) LogKeyNotExists(key);
-        return _ret;
-    }
-
-    public static bool TryGetAndRemove<K, V>(this IDictionary<K, V> c, K key, out V val)
-    {
-        if (c.TryGetValue(key, out val))
+        public static bool TryRemove<T>(this HashSet<T> c, T val)
         {
-            c.Remove(key);
-            return true;
-        }
-        return false;
-    }
-
-    public static bool GetAndRemove<K, V>(this IDictionary<K, V> c, K key, out V val)
-    {
-        if (!c.TryGetAndRemove(key, out val))
-        {
-            LogKeyNotExists(key);
+            if (c.Remove(val)) return true;
+            LogKeyNotExists(val);
             return false;
         }
-
-        return true;
-    }
-
-    public static void RemoveIf<K, V>(this IDictionary<K, V> c, Func<K, V, bool> pred)
-    {
-        var remove = new List<K>();
-
-        foreach (var kv in c)
-        {
-            if (pred(kv.Key, kv.Value))
-                remove.Add(kv.Key);
-        }
-
-        foreach (var key in remove)
-        {
-            c.Remove(key);
-        }
-    }
-
-    public static Dictionary<K2, V2> Map<K1, V1, K2, V2>(this IDictionary<K1, V1> c,
-        Func<K1, V1, KeyValuePair<K2, V2>> mapper)
-    {
-        var ret = new Dictionary<K2, V2>(c.Count);
-        foreach (var kv in c)
-            ret.Add(mapper(kv.Key, kv.Value));
-        return ret;
-    }
-
-    public static bool Empty<T>(this HashSet<T> c)
-    {
-        return c.Count == 0;
-    }
-
-    public static bool TryAdd<T>(this HashSet<T> c, T val)
-    {
-        if (c.Add(val)) return true;
-        LogKeyExists(val);
-        return false;
-    }
-
-    public static bool TryRemove<T>(this HashSet<T> c, T val)
-    {
-        if (c.Remove(val)) return true;
-        LogKeyNotExists(val);
-        return false;
     }
 }

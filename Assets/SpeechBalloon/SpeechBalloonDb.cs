@@ -1,34 +1,38 @@
 ﻿using LitJson;
-using DialogSentenceSequenceJsonDbParser = IJsonDbParser<string, DialogSentenceSequence>;
 
-public class SpeechBalloonDbParser : DialogSentenceSequenceJsonDbParser
+namespace Dialog
 {
-    string DialogSentenceSequenceJsonDbParser.ParseKey(string raw)
+    using DialogSentenceSequenceJsonDbParser = IJsonDbParser<string, DialogSentenceSequence>;
+
+    public class SpeechBalloonDbParser : DialogSentenceSequenceJsonDbParser
     {
-        return raw;
+        string DialogSentenceSequenceJsonDbParser.ParseKey(string raw)
+        {
+            return raw;
+        }
+
+        DialogSentenceSequence DialogSentenceSequenceJsonDbParser.ParseValue(JsonData raw)
+        {
+            return DialogSentenceSequence.Parse(raw);
+        }
     }
 
-    DialogSentenceSequence DialogSentenceSequenceJsonDbParser.ParseValue(JsonData raw)
+    public class SpeechBalloonDb : JsonDb<string, DialogSentenceSequence>
     {
-        return DialogSentenceSequence.Parse(raw);
-    }
-}
+        public static SpeechBalloonDb Inst = new SpeechBalloonDb();
 
-public class SpeechBalloonDb : JsonDb<string, DialogSentenceSequence>
-{
-    public static SpeechBalloonDb Inst = new SpeechBalloonDb();
+        public SpeechBalloonDb() : base(new SpeechBalloonDbParser())
+        {
+        }
 
-    public SpeechBalloonDb() : base(new SpeechBalloonDbParser())
-    {
-    }
+        public DialogSentenceSequence Get(string key)
+        {
+            return GetOrDefault(key, DialogSentenceSequence.Error);
+        }
 
-    public DialogSentenceSequence Get(string key)
-    {
-        return GetOrDefault(key, DialogSentenceSequence.Error);
-    }
-
-    public bool TryAppendWithDefaultDirectory(string fileName, bool force)
-    {
-        return TryAppend(Config.Inst.DefaultSpeechBalloonDbDirectory + fileName, force);
+        public bool TryAppendWithDefaultDirectory(string fileName, bool force)
+        {
+            return TryAppend(Config.Inst.DefaultSpeechBalloonDbDirectory + fileName, force);
+        }
     }
 }

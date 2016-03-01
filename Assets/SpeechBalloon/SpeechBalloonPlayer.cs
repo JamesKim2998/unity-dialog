@@ -1,88 +1,91 @@
 ﻿using System;
 using UnityEngine;
 
-public class SpeechBalloonPlayer : MonoBehaviour
+namespace Dialog
 {
-    private DialogTextPlayer _dialogTextPlayer;
-    private bool _isFinished;
-    private bool _isHavePlayed;
-    private SpeechBalloonUi _ui;
-    public Action OnFinish;
-
-    public bool IsPlaying
+    public class SpeechBalloonPlayer : MonoBehaviour
     {
-        get { return _dialogTextPlayer != null && !_dialogTextPlayer.IsDone; }
-    }
+        private DialogTextPlayer _dialogTextPlayer;
+        private bool _isFinished;
+        private bool _isHavePlayed;
+        private SpeechBalloonUi _ui;
+        public Action OnFinish;
 
-    private void Start()
-    {
-        UpdatePosition();
-    }
-
-    private void OnDestroy()
-    {
-        Reset();
-    }
-
-    private void Finish()
-    {
-        if (_isFinished)
+        public bool IsPlaying
         {
-            Debug.LogWarning("call finish again.");
-            return;
+            get { return _dialogTextPlayer != null && !_dialogTextPlayer.IsDone; }
         }
 
-        _isFinished = true;
-        OnFinish.CheckAndCall();
-        Destroy(this);
-    }
-
-    private void Update()
-    {
-        var dt = Time.deltaTime;
-
-        UpdatePosition();
-        UpdateLetter(dt);
-
-        if (!IsPlaying && _isHavePlayed && !_isFinished)
-            Invoke("Finish", DialogTextPlayer.SentenceProceedDelay);
-    }
-
-    private void UpdatePosition()
-    {
-        _ui.transform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
-    }
-
-    private void UpdateLetter(float dt)
-    {
-        if (_dialogTextPlayer == null) return;
-        _dialogTextPlayer.Update(dt);
-        _ui.SetText(_dialogTextPlayer.Text);
-    }
-
-    public void Play(DialogSentenceSequence dialog)
-    {
-        if (IsPlaying)
+        private void Start()
         {
-            Debug.LogWarning("already playing. reset.");
+            UpdatePosition();
+        }
+
+        private void OnDestroy()
+        {
             Reset();
         }
 
-        var canvas = FindObjectOfType<Canvas>();
-        if (canvas == null) return;
+        private void Finish()
+        {
+            if (_isFinished)
+            {
+                Debug.LogWarning("call finish again.");
+                return;
+            }
 
-        _dialogTextPlayer = new DialogTextPlayer(new DialogTextPlayerSource(dialog));
+            _isFinished = true;
+            OnFinish.CheckAndCall();
+            Destroy(this);
+        }
 
-        _ui = Config.Inst.SpeechBalloonUi.Instantiate();
-        _ui.transform.SetParent(canvas.transform, false);
-        _ui.SetText("");
+        private void Update()
+        {
+            var dt = Time.deltaTime;
 
-        _isHavePlayed = true;
-    }
+            UpdatePosition();
+            UpdateLetter(dt);
 
-    public void Reset()
-    {
-        if (_ui != null) Destroy(_ui.gameObject);
-        _dialogTextPlayer = null;
+            if (!IsPlaying && _isHavePlayed && !_isFinished)
+                Invoke("Finish", DialogTextPlayer.SentenceProceedDelay);
+        }
+
+        private void UpdatePosition()
+        {
+            _ui.transform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
+        }
+
+        private void UpdateLetter(float dt)
+        {
+            if (_dialogTextPlayer == null) return;
+            _dialogTextPlayer.Update(dt);
+            _ui.SetText(_dialogTextPlayer.Text);
+        }
+
+        public void Play(DialogSentenceSequence dialog)
+        {
+            if (IsPlaying)
+            {
+                Debug.LogWarning("already playing. reset.");
+                Reset();
+            }
+
+            var canvas = FindObjectOfType<Canvas>();
+            if (canvas == null) return;
+
+            _dialogTextPlayer = new DialogTextPlayer(new DialogTextPlayerSource(dialog));
+
+            _ui = Config.Inst.SpeechBalloonUi.Instantiate();
+            _ui.transform.SetParent(canvas.transform, false);
+            _ui.SetText("");
+
+            _isHavePlayed = true;
+        }
+
+        public void Reset()
+        {
+            if (_ui != null) Destroy(_ui.gameObject);
+            _dialogTextPlayer = null;
+        }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
-public class TalkDebug : MonoBehaviour
+namespace Dialog
 {
+    public class TalkDebug : MonoBehaviour
+    {
+    }
 }

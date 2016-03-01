@@ -2,81 +2,83 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof (SpeechBalloonDebug))]
-public class SpeechBalloonDebugEditor : ComponentEditor<SpeechBalloonDebug>
+namespace Dialog
 {
-    private static GameObject _target;
-    private List<string> _fileList = new List<string>();
-
-    protected override void OnEnable()
+    [CustomEditor(typeof(SpeechBalloonDebug))]
+    public class SpeechBalloonDebugEditor : ComponentEditor<SpeechBalloonDebug>
     {
-        base.OnEnable();
-        _fileList = EditorUtil.GetListOfFilesWithOutExtension(Config.Inst.DefaultTalkDbFullDirectory, "*.json");
+        private List<string> _fileList = new List<string>();
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _fileList = EditorUtil.GetListOfFilesWithOutExtension(Config.Inst.DefaultTalkDbFullDirectory, "*.json");
+        }
+
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            if (!Application.isPlaying) return;
+            DrawLoadButton();
+            DrawPlay();
+        }
+
+        private void DrawLoadButton()
+        {
+            GUILayout.Label("db");
+            EditorUtil.DrawButtonList(_fileList, x => x,
+                fileName => SpeechBalloonDb.Inst.TryAppendWithDefaultDirectory(fileName, true));
+        }
+
+        private void DrawPlay()
+        {
+            GUILayout.Label("dialog");
+            EditorUtil.DrawButtonList(SpeechBalloonDb.Inst, x => x.Key,
+                kv => SpeechBalloonManager.TryPlay(kv.Key, Target.Target));
+        }
     }
 
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(TalkDebug))]
+    public class TalkDebugEditor : ComponentEditor<TalkDebug>
     {
-        base.OnInspectorGUI();
-        if (!Application.isPlaying) return;
-        DrawLoadButton();
-        DrawPlay();
-    }
+        private List<string> _fileList = new List<string>();
 
-    private void DrawLoadButton()
-    {
-        GUILayout.Label("db");
-        EditorUtil.DrawButtonList(_fileList, x => x,
-            fileName => SpeechBalloonDb.Inst.TryAppendWithDefaultDirectory(fileName, true));
-    }
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _fileList = EditorUtil.GetListOfFilesWithOutExtension(Config.Inst.DefaultTalkDbFullDirectory, "*.json");
+        }
 
-    private void DrawPlay()
-    {
-        GUILayout.Label("dialog");
-        EditorUtil.DrawButtonList(SpeechBalloonDb.Inst, x => x.Key,
-            kv => SpeechBalloonManager.TryPlay(kv.Key, Target.Target));
-    }
-}
+        public override void OnInspectorGUI()
+        {
+            // base.OnInspectorGUI();
+            if (!Application.isPlaying) return;
+            DrawLoadButton();
+            DrawPlay();
+            DrawControl();
+        }
 
-[CustomEditor(typeof (TalkDebug))]
-public class TalkDebugEditor : ComponentEditor<TalkDebug>
-{
-    private List<string> _fileList = new List<string>();
+        private void DrawLoadButton()
+        {
+            GUILayout.Label("db");
+            EditorUtil.DrawButtonList(_fileList, x => x,
+                fileName => TalkDb.Inst.TryAppendWithDefaultDirectory(fileName, true));
+        }
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        _fileList = EditorUtil.GetListOfFilesWithOutExtension(Config.Inst.DefaultTalkDbFullDirectory, "*.json");
-    }
+        private static void DrawPlay()
+        {
+            GUILayout.Label("dialog");
+            EditorUtil.DrawButtonList(TalkDb.Inst, x => x.Key, kv => TalkManager.TryPlay(kv.Key));
+        }
 
-    public override void OnInspectorGUI()
-    {
-        // base.OnInspectorGUI();
-        if (!Application.isPlaying) return;
-        DrawLoadButton();
-        DrawPlay();
-        DrawControl();
-    }
+        private static void DrawControl()
+        {
+            var talkPlayer = FindObjectOfType<TalkPlayer>();
+            if (talkPlayer == null) return;
 
-    private void DrawLoadButton()
-    {
-        GUILayout.Label("db");
-        EditorUtil.DrawButtonList(_fileList, x => x,
-            fileName => TalkDb.Inst.TryAppendWithDefaultDirectory(fileName, true));
-    }
-
-    private static void DrawPlay()
-    {
-        GUILayout.Label("dialog");
-        EditorUtil.DrawButtonList(TalkDb.Inst, x => x.Key, kv => TalkManager.TryPlay(kv.Key));
-    }
-
-    private static void DrawControl()
-    {
-        var talkPlayer = FindObjectOfType<TalkPlayer>();
-        if (talkPlayer == null) return;
-
-        GUILayout.Label("control");
-        if (GUILayout.Button("next"))
-            talkPlayer.Next();
+            GUILayout.Label("control");
+            if (GUILayout.Button("next"))
+                talkPlayer.Next();
+        }
     }
 }

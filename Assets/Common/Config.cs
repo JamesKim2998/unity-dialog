@@ -1,19 +1,22 @@
 ﻿using UnityEngine;
 
-public class Config : MonoBehaviour
+namespace Dialog
 {
-    public static Config Inst;
-
-    Config()
+    public class Config : MonoBehaviour
     {
-        Inst = this;
-    }
+        public static Config Inst;
 
-    public string DefaultSpeechBalloonDbDirectory;
-    public string DefaultTalkDbDirectory;
-    public string DefaultDbRootPath;
-    public string DefaultSpeechBalloonDbFullDirectory { get { return DefaultDbRootPath + DefaultSpeechBalloonDbDirectory; } }
-    public string DefaultTalkDbFullDirectory { get { return DefaultDbRootPath + DefaultTalkDbDirectory; } }
-    public SpeechBalloonUi SpeechBalloonUi;
-    public TalkPlayer TalkPlayer;
+        Config()
+        {
+            Inst = this;
+        }
+
+        public string DefaultSpeechBalloonDbDirectory;
+        public string DefaultTalkDbDirectory;
+        public string DefaultDbRootPath;
+        public string DefaultSpeechBalloonDbFullDirectory { get { return DefaultDbRootPath + DefaultSpeechBalloonDbDirectory; } }
+        public string DefaultTalkDbFullDirectory { get { return DefaultDbRootPath + DefaultTalkDbDirectory; } }
+        public SpeechBalloonUi SpeechBalloonUi;
+        public TalkPlayer TalkPlayer;
+    }
 }

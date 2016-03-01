@@ -1,19 +1,22 @@
 ﻿using UnityEngine;
 
-public static class TalkManager
+namespace Dialog
 {
-    public static bool TryPlay(string key)
+    public static class TalkManager
     {
-        var canvas = Object.FindObjectOfType<Canvas>();
-        if (canvas == null)
+        public static bool TryPlay(string key)
         {
-            Debug.LogError("no canvas.");
-            return false;
-        }
+            var canvas = Object.FindObjectOfType<Canvas>();
+            if (canvas == null)
+            {
+                Debug.LogError("no canvas.");
+                return false;
+            }
 
-        var player = Config.Inst.TalkPlayer.Instantiate();
-        player.transform.SetParent(canvas.transform, false);
-        player.Play(TalkDb.Inst.Get(key));
-        return true;
+            var player = Config.Inst.TalkPlayer.Instantiate();
+            player.transform.SetParent(canvas.transform, false);
+            player.Play(TalkDb.Inst.Get(key));
+            return true;
+        }
     }
 }

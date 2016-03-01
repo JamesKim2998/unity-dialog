@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class SpeechBalloonUi : MonoBehaviour
+namespace Dialog
 {
-    [SerializeField] private Text _text;
-
-    public void SetText(string text)
+    public class SpeechBalloonUi : MonoBehaviour
     {
-        _text.text = text;
+        [SerializeField]
+        private Text _text;
+
+        public void SetText(string text)
+        {
+            _text.text = text;
+        }
     }
 }

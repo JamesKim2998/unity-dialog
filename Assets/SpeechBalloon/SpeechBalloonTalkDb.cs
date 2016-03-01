@@ -1,57 +1,61 @@
 ﻿using System.Linq;
 using LitJson;
-using SpeechBalloonTalk = System.Collections.Generic.List<TargetedDialogSentenceSequence>;
-using ISpeechBalloonTalkParser = IJsonDbParser<string, System.Collections.Generic.List<TargetedDialogSentenceSequence>>;
 
-public class SpeechBalloonTalkParser : ISpeechBalloonTalkParser
+namespace Dialog
 {
-    string ISpeechBalloonTalkParser.ParseKey(string raw)
-    {
-        return raw;
-    }
+    using SpeechBalloonTalk = System.Collections.Generic.List<TargetedDialogSentenceSequence>;
+    using ISpeechBalloonTalkParser = IJsonDbParser<string, System.Collections.Generic.List<TargetedDialogSentenceSequence>>;
 
-    SpeechBalloonTalk ISpeechBalloonTalkParser.ParseValue(JsonData raw)
+    public class SpeechBalloonTalkParser : ISpeechBalloonTalkParser
     {
-        return raw.GetListEnum().Select<JsonData, TargetedDialogSentenceSequence>(TargetedDialogSentenceSequence.Parse).ToList();
-    }
-}
-
-public class TargetedDialogSentenceSequence
-{
-    public static TargetedDialogSentenceSequence Error = new TargetedDialogSentenceSequence
-    {
-        Target = "",
-        Sentences = DialogSentenceSequence.Error
-    };
-
-    public DialogSentenceSequence Sentences;
-    public string Target;
-
-    public static TargetedDialogSentenceSequence Parse(JsonData raw)
-    {
-        return new TargetedDialogSentenceSequence
+        string ISpeechBalloonTalkParser.ParseKey(string raw)
         {
-            Target = (string) raw["target"],
-            Sentences = DialogSentenceSequence.Parse(raw["sentences"])
+            return raw;
+        }
+
+        SpeechBalloonTalk ISpeechBalloonTalkParser.ParseValue(JsonData raw)
+        {
+            return raw.GetListEnum().Select<JsonData, TargetedDialogSentenceSequence>(TargetedDialogSentenceSequence.Parse).ToList();
+        }
+    }
+
+    public class TargetedDialogSentenceSequence
+    {
+        public static TargetedDialogSentenceSequence Error = new TargetedDialogSentenceSequence
+        {
+            Target = "",
+            Sentences = DialogSentenceSequence.Error
         };
-    }
-}
 
-public class SpeechBalloonTalkDb : JsonDb<string, SpeechBalloonTalk>
-{
-    public static SpeechBalloonTalkDb Inst = new SpeechBalloonTalkDb();
+        public DialogSentenceSequence Sentences;
+        public string Target;
 
-    public SpeechBalloonTalkDb() : base(new SpeechBalloonTalkParser())
-    {
-    }
-
-    public SpeechBalloonTalk Get(string key)
-    {
-        return GetOrDefault(key, new SpeechBalloonTalk {TargetedDialogSentenceSequence.Error});
+        public static TargetedDialogSentenceSequence Parse(JsonData raw)
+        {
+            return new TargetedDialogSentenceSequence
+            {
+                Target = (string)raw["target"],
+                Sentences = DialogSentenceSequence.Parse(raw["sentences"])
+            };
+        }
     }
 
-    public bool TryAppendWithDefaultDirectory(string fileName, bool force)
+    public class SpeechBalloonTalkDb : JsonDb<string, SpeechBalloonTalk>
     {
-        return TryAppend("Dialog/SpeechBalloonTalk/" + fileName, force);
+        public static SpeechBalloonTalkDb Inst = new SpeechBalloonTalkDb();
+
+        public SpeechBalloonTalkDb() : base(new SpeechBalloonTalkParser())
+        {
+        }
+
+        public SpeechBalloonTalk Get(string key)
+        {
+            return GetOrDefault(key, new SpeechBalloonTalk { TargetedDialogSentenceSequence.Error });
+        }
+
+        public bool TryAppendWithDefaultDirectory(string fileName, bool force)
+        {
+            return TryAppend("Dialog/SpeechBalloonTalk/" + fileName, force);
+        }
     }
 }

@@ -1,32 +1,35 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-public class ComponentEditor<T> : Editor
-    where T : Component
+namespace Dialog
 {
-    private new T target;
-
-    public T Target
+    public class ComponentEditor<T> : Editor
+        where T : Component
     {
-        get { return target ?? (target = (T) base.target); }
+        private new T target;
+
+        public T Target
+        {
+            get { return target ?? (target = (T)base.target); }
+        }
+
+        protected virtual void OnEnable()
+        {
+        }
     }
 
-    protected virtual void OnEnable()
+    public class ScriptableObjectEditor<T> : Editor
+        where T : ScriptableObject
     {
-    }
-}
+        private new T target;
 
-public class ScriptableObjectEditor<T> : Editor
-    where T : ScriptableObject
-{
-    private new T target;
+        public T Target
+        {
+            get { return target ?? (target = (T)base.target); }
+        }
 
-    public T Target
-    {
-        get { return target ?? (target = (T) base.target); }
-    }
-
-    protected virtual void OnEnable()
-    {
+        protected virtual void OnEnable()
+        {
+        }
     }
 }
