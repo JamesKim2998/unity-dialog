@@ -350,7 +350,7 @@ MonoBehaviour:
   DefaultSpeechBalloonDbDirectory: SpeechBalloon/
   DefaultSpeechBalloonTalkDbDirectory: SpeechBalloonTalk/
   DefaultTalkDbDirectory: Talk/
-  DefaultDbRootPath: Assets/Scene/Resources/
+  DefaultDbRootPath: Assets/Demo/Resources/
   SpeechBalloonUi: {fileID: 11457784, guid: bf1d5e5a5ff55fb4592cd0d9a29c0bf5, type: 2}
   TalkPlayer: {fileID: 11495028, guid: de73d9d366c415d408648f834444a7fe, type: 2}
 --- !u!4 &1057174082
