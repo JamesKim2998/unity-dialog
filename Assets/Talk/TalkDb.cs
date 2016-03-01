@@ -63,6 +63,6 @@ public class TalkDb : JsonDb<string, TalkSentenceSequence>
 
     public bool TryAppendWithDefaultDirectory(string fileName, bool force)
     {
-        return TryAppend("Dialog/Talk/" + fileName, force);
+        return TryAppend(Config.Inst.DefaultTalkDbDirectory + fileName, force);
     }
 }

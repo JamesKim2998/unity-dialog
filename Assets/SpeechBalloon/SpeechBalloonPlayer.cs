@@ -73,7 +73,7 @@ public class SpeechBalloonPlayer : MonoBehaviour
 
         _dialogTextPlayer = new DialogTextPlayer(new DialogTextPlayerSource(dialog));
 
-        _ui = PrefabDb.Inst.SpeechBalloonUi.Instantiate();
+        _ui = Config.Inst.SpeechBalloonUi.Instantiate();
         _ui.transform.SetParent(canvas.transform, false);
         _ui.SetText("");
 

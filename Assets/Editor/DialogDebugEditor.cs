@@ -11,7 +11,7 @@ public class SpeechBalloonDebugEditor : ComponentEditor<SpeechBalloonDebug>
     protected override void OnEnable()
     {
         base.OnEnable();
-        _fileList = FileSystemHelper.GetListOfFilesWithOutExtension("Assets/Resources/Dialog/SpeechBalloon", "*.json");
+        _fileList = EditorUtil.GetListOfFilesWithOutExtension(Config.Inst.DefaultTalkDbFullDirectory, "*.json");
     }
 
     public override void OnInspectorGUI()
@@ -44,7 +44,7 @@ public class TalkDebugEditor : ComponentEditor<TalkDebug>
     protected override void OnEnable()
     {
         base.OnEnable();
-        _fileList = FileSystemHelper.GetListOfFilesWithOutExtension("Assets/Resources/Dialog/Talk", "*.json");
+        _fileList = EditorUtil.GetListOfFilesWithOutExtension(Config.Inst.DefaultTalkDbFullDirectory, "*.json");
     }
 
     public override void OnInspectorGUI()

@@ -11,7 +11,7 @@ public static class TalkManager
             return false;
         }
 
-        var player = PrefabDb.Inst.TalkPlayer.Instantiate();
+        var player = Config.Inst.TalkPlayer.Instantiate();
         player.transform.SetParent(canvas.transform, false);
         player.Play(TalkDb.Inst.Get(key));
         return true;

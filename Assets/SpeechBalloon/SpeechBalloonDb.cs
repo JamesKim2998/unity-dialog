@@ -29,6 +29,6 @@ public class SpeechBalloonDb : JsonDb<string, DialogSentenceSequence>
 
     public bool TryAppendWithDefaultDirectory(string fileName, bool force)
     {
-        return TryAppend("Dialog/SpeechBalloon/" + fileName, force);
+        return TryAppend(Config.Inst.DefaultSpeechBalloonDbDirectory + fileName, force);
     }
 }
