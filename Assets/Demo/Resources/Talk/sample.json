@@ -2,9 +2,9 @@
     "sing-a-song-1": {
         "View": {
             "Type": "Sprite",
-            "Path": "Talk/sample-owner"
+            "Path": "Talk/sample-owner",
+            "Pivot": "Left"
         },
-        "Pivot": "Left",
         "Sentences": [
             "너를 만난 이후~\n난 행복했었지~",
             {
